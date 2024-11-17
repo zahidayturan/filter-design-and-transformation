@@ -1,47 +1,47 @@
 #include "mainwindow.h"
-#include <iostream>
-#include <fstream>
 #include <QMessageBox>
 #include <QProcess>
-#include <QCoreApplication>
 #include <QDir>
+#include <fstream>
+#include <iostream>
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+#include "ui_MainWindow.h"
 
-    csvButton = new QPushButton("CSV Dosyası Oluştur", this);
-    graphButton = new QPushButton("Grafiği Göster", this);
-
-    layout = new QVBoxLayout;
-    layout->addWidget(csvButton);
-    layout->addWidget(graphButton);
-
-    auto *centralWidget = new QWidget(this);
-    centralWidget->setLayout(layout);
-    setCentralWidget(centralWidget);
-
-    connect(csvButton, &QPushButton::clicked, this, &MainWindow::generateCSV);
-    connect(graphButton, &QPushButton::clicked, this, &MainWindow::showGraph);
+MainWindow::MainWindow(QWidget *parent)
+        : QMainWindow(parent), ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    connect(ui->csvButton, &QPushButton::clicked, this, &MainWindow::generateCSV);
+    connect(ui->graphButton, &QPushButton::clicked, this, &MainWindow::showGraph);
 }
 
-void MainWindow::generateCSV() {
-    double omegaMax = 10.0;
-    int points = 1000;
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+void MainWindow::generateCSV()
+{
+    const double omegaMax = 10.0;
+    const int points = 1000;
 
     std::ofstream file("butterworth_response.csv");
-    if (!file.is_open()) {
+    if (!file.is_open())
+    {
         QMessageBox::critical(this, "Hata", "CSV dosyası oluşturulamadı!");
         return;
     }
 
-    for (int i = 0; i < points; ++i) {
+    for (int i = 0; i < points; ++i)
+    {
         double omega = (omegaMax / points) * i;
-        file << omega << "," << 1.0 / (1.0 + omega * omega) << "\n";
+        double response = 1.0 / (1.0 + omega * omega);
+        file << omega << "," << response << "\n";
     }
 
     file.close();
     QMessageBox::information(this, "Başarılı", "CSV dosyası oluşturuldu!");
 }
-
 
 void MainWindow::showGraph() {
     auto *process = new QProcess(this);
@@ -100,8 +100,4 @@ void MainWindow::showGraph() {
         qDebug() << "Python error output:" << errorOutput;
     });
 }
-
-
-
-
 

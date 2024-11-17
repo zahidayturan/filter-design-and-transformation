@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_PREFIX_PATH "C:\\Qt\\6.8.0\\mingw_64\\lib\\cmake")
 
@@ -24,6 +25,7 @@ add_executable(Filter
         main.cpp
         mainwindow.h
         mainwindow.cpp
+        mainwindow.ui
         )
 target_link_libraries(Filter
         PRIVATE

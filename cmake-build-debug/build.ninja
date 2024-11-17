@@ -124,7 +124,7 @@ build Filter_autogen_timestamp_deps: phony CMakeFiles/Filter_autogen_timestamp_d
 #############################################
 # Utility command for Filter_autogen
 
-build Filter_autogen: phony CMakeFiles/Filter_autogen Filter_autogen/timestamp Filter_autogen/mocs_compilation.cpp Filter_autogen_timestamp_deps
+build Filter_autogen: phony CMakeFiles/Filter_autogen Filter_autogen/include/ui_MainWindow.h Filter_autogen/timestamp Filter_autogen/mocs_compilation.cpp Filter_autogen_timestamp_deps
 
 
 #############################################
@@ -140,13 +140,13 @@ build Filter_autogen/timestamp Filter_autogen/mocs_compilation.cpp | ${cmake_nin
 #############################################
 # Phony custom command for CMakeFiles\Filter_autogen_timestamp_deps
 
-build CMakeFiles/Filter_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles/Filter_autogen_timestamp_deps: phony C$:/Qt/6.8.0/mingw_64/bin/Qt6Gui.dll C$:/Qt/6.8.0/mingw_64/bin/moc.exe C$:/Qt/6.8.0/mingw_64/bin/Qt6Core.dll C$:/Qt/6.8.0/mingw_64/bin/uic.exe C$:/Qt/6.8.0/mingw_64/bin/Qt6Widgets.dll C$:/Qt/6.8.0/mingw_64/bin/Qt6PrintSupport.dll
+build CMakeFiles/Filter_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles/Filter_autogen_timestamp_deps: phony C$:/Qt/6.8.0/mingw_64/bin/Qt6Gui.dll C$:/Qt/6.8.0/mingw_64/bin/Qt6Core.dll C$:/Qt/6.8.0/mingw_64/bin/moc.exe C$:/Qt/6.8.0/mingw_64/bin/Qt6PrintSupport.dll C$:/Qt/6.8.0/mingw_64/bin/uic.exe C$:/Qt/6.8.0/mingw_64/bin/Qt6Widgets.dll
 
 
 #############################################
 # Phony custom command for CMakeFiles\Filter_autogen
 
-build CMakeFiles/Filter_autogen | ${cmake_ninja_workdir}CMakeFiles/Filter_autogen: phony Filter_autogen/timestamp || Filter_autogen_timestamp_deps
+build CMakeFiles/Filter_autogen Filter_autogen/include/ui_MainWindow.h | ${cmake_ninja_workdir}CMakeFiles/Filter_autogen ${cmake_ninja_workdir}Filter_autogen/include/ui_MainWindow.h: phony Filter_autogen/timestamp || Filter_autogen_timestamp_deps
 
 # =============================================================================
 # Target aliases.

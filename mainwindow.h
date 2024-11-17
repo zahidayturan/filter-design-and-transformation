@@ -5,22 +5,21 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QProcess>
+#include "ui_MainWindow.h"
 
 class MainWindow : public QMainWindow {
 Q_OBJECT
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
+    ~MainWindow() override;
 
 private slots:
     void generateCSV();
     void showGraph();
 
 private:
-    QPushButton *csvButton;
-    QPushButton *graphButton;
-    QVBoxLayout *layout;
+    Ui::MainWindow *ui;
 };
-
 #endif
 

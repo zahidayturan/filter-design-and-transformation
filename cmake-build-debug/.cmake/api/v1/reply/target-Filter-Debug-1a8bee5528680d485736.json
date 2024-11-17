@@ -28,13 +28,13 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 23,
+				"line" : 24,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 28,
+				"line" : 30,
 				"parent" : 0
 			}
 		]
@@ -156,11 +156,11 @@
 	"dependencies" : 
 	[
 		{
-			"backtrace" : 0,
-			"id" : "Filter_autogen::@6890427a1f51a3e7e1df"
+			"id" : "Filter_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
 		},
 		{
-			"id" : "Filter_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
+			"backtrace" : 0,
+			"id" : "Filter_autogen::@6890427a1f51a3e7e1df"
 		}
 	],
 	"id" : "Filter::@6890427a1f51a3e7e1df",
@@ -257,21 +257,23 @@
 			"name" : "Header Files",
 			"sourceIndexes" : 
 			[
-				2
+				2,
+				5
 			]
 		},
 		{
 			"name" : "",
 			"sourceIndexes" : 
 			[
-				4
+				4,
+				6
 			]
 		},
 		{
 			"name" : "CMake Rules",
 			"sourceIndexes" : 
 			[
-				5
+				7
 			]
 		}
 	],
@@ -300,6 +302,17 @@
 			"compileGroupIndex" : 0,
 			"path" : "mainwindow.cpp",
 			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "mainwindow.ui",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "cmake-build-debug/Filter_autogen/include/ui_MainWindow.h",
+			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 0,
