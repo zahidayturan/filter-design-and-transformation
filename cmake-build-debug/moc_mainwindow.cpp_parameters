@@ -1,0 +1,4 @@
+-DWIN32
+-o
+C:/Users/ismet/CLionProjects/filter-design/cmake-build-debug/moc_mainwindow.cpp
+C:/Users/ismet/CLionProjects/filter-design/mainwindow.h

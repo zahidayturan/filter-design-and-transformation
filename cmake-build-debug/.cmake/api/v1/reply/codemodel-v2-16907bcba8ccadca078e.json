@@ -1,0 +1,78 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Filter",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Filter::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Filter-Debug-90dc1bec608810092229.json",
+					"name" : "Filter",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Filter_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Filter_autogen-Debug-29b5897d24712b584abf.json",
+					"name" : "Filter_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Filter_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Filter_autogen_timestamp_deps-Debug-e585d5575e1a7e480898.json",
+					"name" : "Filter_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/ismet/CLionProjects/filter-design/cmake-build-debug",
+		"source" : "C:/Users/ismet/CLionProjects/filter-design"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}
