@@ -9,6 +9,8 @@
 #include <cmath>
 #include <complex>
 #include <vector>
+#include <stdexcept>
+#include <QString>
 
 using namespace std;
 
@@ -192,7 +194,6 @@ void MainWindow::showGraph() {
     }
 }
 
-
 void generateButterworth(const QString& filename, int n, double omegaMax, int points) {
     std::ofstream csvFile(filename.toStdString());
     if (!csvFile.is_open()) {
@@ -248,6 +249,63 @@ void generateButterworth(const QString& filename, int n, double omegaMax, int po
     QMessageBox::information(nullptr, "Başarılı", "CSV dosyası başarıyla oluşturuldu!");
 }
 
+void denormalizeLPF(const std::string& inputFilename, const std::string& outputFilename, double omegaP) {
+    std::ifstream inputFile(inputFilename);
+    std::ofstream outputFile(outputFilename);
+    if (!inputFile.is_open() || !outputFile.is_open()) {
+        throw std::runtime_error("Giriş veya çıkış dosyası açılamadı!");
+    }
+
+    double omegaN, Hw;
+    while (inputFile >> omegaN) {
+        char comma;
+        inputFile >> comma >> Hw;
+        double omega = omegaN * omegaP;  // Denormalize frekans
+        outputFile << omega << "," << Hw << "\n";
+    }
+
+    inputFile.close();
+    outputFile.close();
+}
+
+void denormalizeHPF(const std::string& inputFilename, const std::string& outputFilename, double omegaP) {
+    std::ifstream inputFile(inputFilename);
+    std::ofstream outputFile(outputFilename);
+    if (!inputFile.is_open() || !outputFile.is_open()) {
+        throw std::runtime_error("Giriş veya çıkış dosyası açılamadı!");
+    }
+
+    double omegaN, Hw;
+    while (inputFile >> omegaN) {
+        char comma;
+        inputFile >> comma >> Hw;
+        double omega = omegaP / omegaN;  // Denormalize frekans
+        outputFile << omega << "," << Hw << "\n";
+    }
+
+    inputFile.close();
+    outputFile.close();
+}
+
+void denormalizeBPF(const std::string& inputFilename, const std::string& outputFilename, double omegaC, double BW) {
+    std::ifstream inputFile(inputFilename);
+    std::ofstream outputFile(outputFilename);
+    if (!inputFile.is_open() || !outputFile.is_open()) {
+        throw std::runtime_error("Giriş veya çıkış dosyası açılamadı!");
+    }
+
+    double omegaN, Hw;
+    while (inputFile >> omegaN) {
+        char comma;
+        inputFile >> comma >> Hw;
+        double result = ((omegaN * omegaN) + (omegaC * omegaC)) / (BW * omegaN);  // Denormalize frekans
+        outputFile << result << "," << Hw << "\n";
+    }
+
+    inputFile.close();
+    outputFile.close();
+}
+
 void MainWindow::generateButterworthCSV() {
     const QString filename = "butterworth_response.csv";
     const int filterOrder = 6;
@@ -255,4 +313,27 @@ void MainWindow::generateButterworthCSV() {
     const int points = 200;
 
     generateButterworth(filename, filterOrder, omegaMax, points);
+    std::cout << "Normalize butterworth butterworth_response.csv dosyasına yazıldı." << std::endl;
+
+    try {
+        const std::string inputFilename = "butterworth_response.csv";
+
+        double omegaLPF = 340;   // LPF köşe frekansı
+        double omegaHPF = 130;   // HPF köşe frekansı
+        double omegaBPF = 310;   // BPF merkez frekansı
+        double BW = 95;          // BPF bant genişliği
+
+        denormalizeLPF(inputFilename, "lpf_response.csv", omegaLPF);
+        std::cout << "LPF frekans cevabı lpf_response.csv dosyasına yazıldı." << std::endl;
+
+        denormalizeHPF(inputFilename, "hpf_response.csv", omegaHPF);
+        std::cout << "HPF frekans cevabı hpf_response.csv dosyasına yazıldı." << std::endl;
+
+        denormalizeBPF(inputFilename, "bpf_response.csv", omegaBPF, BW);
+        std::cout << "BPF frekans cevabı bpf_response.csv dosyasına yazıldı." << std::endl;
+
+    } catch (const std::exception& e) {
+        std::cerr << "Hata: " << e.what() << std::endl;
+    }
 }
+
