@@ -360,6 +360,7 @@ Filter_autogen/timestamp: \
   C:/Qt/6.8.0/mingw_64/include/QtCore/qtversionchecks.h \
   C:/Qt/6.8.0/mingw_64/include/QtCore/qtypeinfo.h \
   C:/Qt/6.8.0/mingw_64/include/QtCore/qtypes.h \
+  C:/Qt/6.8.0/mingw_64/include/QtCore/qurl.h \
   C:/Qt/6.8.0/mingw_64/include/QtCore/qutf8stringview.h \
   C:/Qt/6.8.0/mingw_64/include/QtCore/qvariant.h \
   C:/Qt/6.8.0/mingw_64/include/QtCore/qvarlengtharray.h \
@@ -382,12 +383,17 @@ Filter_autogen/timestamp: \
   C:/Qt/6.8.0/mingw_64/include/QtGui/qkeysequence.h \
   C:/Qt/6.8.0/mingw_64/include/QtGui/qpaintdevice.h \
   C:/Qt/6.8.0/mingw_64/include/QtGui/qpalette.h \
+  C:/Qt/6.8.0/mingw_64/include/QtGui/qpen.h \
   C:/Qt/6.8.0/mingw_64/include/QtGui/qpixelformat.h \
   C:/Qt/6.8.0/mingw_64/include/QtGui/qpixmap.h \
   C:/Qt/6.8.0/mingw_64/include/QtGui/qpolygon.h \
   C:/Qt/6.8.0/mingw_64/include/QtGui/qregion.h \
   C:/Qt/6.8.0/mingw_64/include/QtGui/qrgb.h \
   C:/Qt/6.8.0/mingw_64/include/QtGui/qrgba64.h \
+  C:/Qt/6.8.0/mingw_64/include/QtGui/qtextcursor.h \
+  C:/Qt/6.8.0/mingw_64/include/QtGui/qtextdocument.h \
+  C:/Qt/6.8.0/mingw_64/include/QtGui/qtextformat.h \
+  C:/Qt/6.8.0/mingw_64/include/QtGui/qtextoption.h \
   C:/Qt/6.8.0/mingw_64/include/QtGui/qtgui-config.h \
   C:/Qt/6.8.0/mingw_64/include/QtGui/qtguiexports.h \
   C:/Qt/6.8.0/mingw_64/include/QtGui/qtguiglobal.h \
@@ -395,6 +401,8 @@ Filter_autogen/timestamp: \
   C:/Qt/6.8.0/mingw_64/include/QtGui/qwindowdefs.h \
   C:/Qt/6.8.0/mingw_64/include/QtGui/qwindowdefs_win.h \
   C:/Qt/6.8.0/mingw_64/include/QtWidgets/QApplication \
+  C:/Qt/6.8.0/mingw_64/include/QtWidgets/QHBoxLayout \
+  C:/Qt/6.8.0/mingw_64/include/QtWidgets/QLineEdit \
   C:/Qt/6.8.0/mingw_64/include/QtWidgets/QMainWindow \
   C:/Qt/6.8.0/mingw_64/include/QtWidgets/QPushButton \
   C:/Qt/6.8.0/mingw_64/include/QtWidgets/QVBoxLayout \
@@ -402,9 +410,11 @@ Filter_autogen/timestamp: \
   C:/Qt/6.8.0/mingw_64/include/QtWidgets/qabstractbutton.h \
   C:/Qt/6.8.0/mingw_64/include/QtWidgets/qapplication.h \
   C:/Qt/6.8.0/mingw_64/include/QtWidgets/qboxlayout.h \
+  C:/Qt/6.8.0/mingw_64/include/QtWidgets/qframe.h \
   C:/Qt/6.8.0/mingw_64/include/QtWidgets/qgridlayout.h \
   C:/Qt/6.8.0/mingw_64/include/QtWidgets/qlayout.h \
   C:/Qt/6.8.0/mingw_64/include/QtWidgets/qlayoutitem.h \
+  C:/Qt/6.8.0/mingw_64/include/QtWidgets/qlineedit.h \
   C:/Qt/6.8.0/mingw_64/include/QtWidgets/qmainwindow.h \
   C:/Qt/6.8.0/mingw_64/include/QtWidgets/qpushbutton.h \
   C:/Qt/6.8.0/mingw_64/include/QtWidgets/qsizepolicy.h \

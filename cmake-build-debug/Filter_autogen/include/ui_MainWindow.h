@@ -11,6 +11,8 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
@@ -23,14 +25,19 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QVBoxLayout *vboxLayout;
+    QLineEdit *lineEdit;
+    QHBoxLayout *horizontalLayout;
     QPushButton *csvButton;
+    QPushButton *butterworthButton;
     QPushButton *graphButton;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(1103, 596);
+        MainWindow->resize(1103, 248);
+        MainWindow->setAutoFillBackground(false);
+        MainWindow->setStyleSheet(QString::fromUtf8("background-color: rgb(57, 57, 57);"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         centralwidget->setAutoFillBackground(false);
@@ -39,16 +46,37 @@ public:
         vboxLayout->setObjectName("vboxLayout");
         vboxLayout->setSizeConstraint(QLayout::SizeConstraint::SetMinimumSize);
         vboxLayout->setContentsMargins(50, 50, 50, 50);
+        lineEdit = new QLineEdit(centralwidget);
+        lineEdit->setObjectName("lineEdit");
+        lineEdit->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+
+        vboxLayout->addWidget(lineEdit);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName("horizontalLayout");
         csvButton = new QPushButton(centralwidget);
         csvButton->setObjectName("csvButton");
+        csvButton->setAutoFillBackground(false);
+        csvButton->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
 
-        vboxLayout->addWidget(csvButton);
+        horizontalLayout->addWidget(csvButton);
+
+        butterworthButton = new QPushButton(centralwidget);
+        butterworthButton->setObjectName("butterworthButton");
+
+        horizontalLayout->addWidget(butterworthButton);
 
         graphButton = new QPushButton(centralwidget);
         graphButton->setObjectName("graphButton");
         graphButton->setEnabled(true);
+        graphButton->setAutoFillBackground(false);
+        graphButton->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+        graphButton->setCheckable(false);
 
-        vboxLayout->addWidget(graphButton);
+        horizontalLayout->addWidget(graphButton);
+
+
+        vboxLayout->addLayout(horizontalLayout);
 
         MainWindow->setCentralWidget(centralwidget);
 
@@ -60,7 +88,9 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
+        lineEdit->setText(QCoreApplication::translate("MainWindow", "Input", nullptr));
         csvButton->setText(QCoreApplication::translate("MainWindow", "CSV Dosyas\304\261 Olu\305\237tur", nullptr));
+        butterworthButton->setText(QCoreApplication::translate("MainWindow", "Butterworth CSV", nullptr));
         graphButton->setText(QCoreApplication::translate("MainWindow", "Grafi\304\237i G\303\266ster", nullptr));
     } // retranslateUi
 

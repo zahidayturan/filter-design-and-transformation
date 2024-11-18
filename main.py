@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 import csv
 import numpy as np
 import os
+import sys
+
 
 def read_csv(filename):
     freqs = []
@@ -15,8 +17,13 @@ def read_csv(filename):
 
 
 def plot_frequency_response(freqs, amplitudes, title="Frequency Response"):
+    min_amplitude = 1e-12
+    amplitudes = [max(amp, min_amplitude) for amp in amplitudes]
+
+    dB_amplitudes = 20 * np.log10(amplitudes)
+
     plt.figure(figsize=(10, 6))
-    plt.plot(freqs, 20 * np.log10(amplitudes))
+    plt.plot(freqs, amplitudes)
     plt.title(title)
     plt.xlabel("Frequency (rad/s)")
     plt.ylabel("Magnitude (dB)")
@@ -26,7 +33,10 @@ def plot_frequency_response(freqs, amplitudes, title="Frequency Response"):
 
 
 if __name__ == "__main__":
-    filename = "butterworth_response.csv"
+    if len(sys.argv) < 2:
+        raise ValueError("CSV dosyası ismi parametre olarak verilmedi!")
+
+    filename = sys.argv[1]
 
     if not os.path.exists(filename):
         filename = os.path.join("cmake-build-debug", filename)

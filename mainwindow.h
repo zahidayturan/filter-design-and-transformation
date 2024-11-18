@@ -17,6 +17,7 @@ public:
 private slots:
     void generateCSV();
     void showGraph();
+    void generateButterworthCSV();
 
 private:
     Ui::MainWindow *ui;
