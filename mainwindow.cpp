@@ -201,47 +201,10 @@ void generateButterworth(const QString& filename, int n, double omegaMax, int po
         return;
     }
 
-    // Calculate Butterworth filter poles
-    std::vector<std::complex<double>> poles(n);
-    for (int k = 0; k < n; ++k) {
-        double theta = (2 * k + 1) * M_PI / (2 * n);
-        double realPart = -sin(theta);
-        double imagPart = cos(theta);
-        poles[k] = std::complex<double>(realPart, imagPart);
-    }
-
-    // Compute biquad coefficients
-    std::vector<std::vector<double>> Hbt;
-    for (int k = 0; k < (n + 1) / 2; ++k) {
-        if (k == n - k - 1) {
-            // Single real root
-            Hbt.push_back({0, 1, -poles[k].real()});
-        } else {
-            // Conjugate pair roots
-            auto p1 = poles[k];
-            auto p2 = poles[n - k - 1];
-            Hbt.push_back({
-                                  1,
-                                  -(p1.real() + p2.real()),
-                                  (p1.real() * p2.real() - p1.imag() * p2.imag())
-                          });
-        }
-    }
-
-    // Compute frequency response and write to CSV
     for (int l = 0; l < points; ++l) {
         double omega = (omegaMax / points) * l;
-        std::complex<double> jw(0, omega);
-
-        double numerator = 1.0;
-        double denominator = 1.0;
-        for (const auto& coeffs : Hbt) {
-            std::complex<double> H = coeffs[0] * std::pow(jw, 2) + coeffs[1] * jw + coeffs[2];
-            numerator *= std::abs(coeffs[2]);
-            denominator *= std::abs(H);
-        }
-
-        double Hw = numerator / denominator;
+        double Hw = 1.0 / std::sqrt(1.0 + std::pow(omega / 1.0, 2 * n));
+        //normalize edildiği için / 1.0
         csvFile << omega << "," << Hw << "\n";
     }
 
@@ -256,11 +219,28 @@ void denormalizeLPF(const std::string& inputFilename, const std::string& outputF
         throw std::runtime_error("Giriş veya çıkış dosyası açılamadı!");
     }
 
+    // İlk geçiş: normalize edilmiş frekansların maksimumunu bul
+    double maxOmegaN = 0.0;
     double omegaN, Hw;
     while (inputFile >> omegaN) {
         char comma;
         inputFile >> comma >> Hw;
-        double omega = omegaN * omegaP;  // Denormalize frekans
+        if (omegaN > maxOmegaN) {
+            maxOmegaN = omegaN;
+        }
+    }
+
+    inputFile.clear();
+    inputFile.seekg(0, std::ios::beg);
+
+    // Ölçekleme faktörünü hesapla
+    double scalingFactor = 3.0 / (maxOmegaN * omegaP);
+
+    // Denormalize edilmiş frekansları yaz
+    while (inputFile >> omegaN) {
+        char comma;
+        inputFile >> comma >> Hw;
+        double omega = omegaN * omegaP * scalingFactor; // Ölçekleme uygulanmış frekans
         outputFile << omega << "," << Hw << "\n";
     }
 
@@ -309,7 +289,7 @@ void denormalizeBPF(const std::string& inputFilename, const std::string& outputF
 void MainWindow::generateButterworthCSV() {
     const QString filename = "butterworth_response.csv";
     const int filterOrder = 6;
-    const double omegaMax = 3;
+    const double omegaMax = 3.0;
     const int points = 200;
 
     generateButterworth(filename, filterOrder, omegaMax, points);
@@ -318,10 +298,10 @@ void MainWindow::generateButterworthCSV() {
     try {
         const std::string inputFilename = "butterworth_response.csv";
 
-        double omegaLPF = 340;   // LPF köşe frekansı
-        double omegaHPF = 130;   // HPF köşe frekansı
-        double omegaBPF = 310;   // BPF merkez frekansı
-        double BW = 95;          // BPF bant genişliği
+        double omegaLPF = 340.0;   // LPF köşe frekansı
+        double omegaHPF = 130.0;   // HPF köşe frekansı
+        double omegaBPF = 310.0;   // BPF merkez frekansı
+        double BW = 95.0;          // BPF bant genişliği
 
         denormalizeLPF(inputFilename, "lpf_response.csv", omegaLPF);
         std::cout << "LPF frekans cevabı lpf_response.csv dosyasına yazıldı." << std::endl;
