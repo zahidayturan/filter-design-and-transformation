@@ -16,6 +16,8 @@ using namespace std;
 
 void generateButterworth(const QString& filename, int n, double omegaMax, int points);
 
+void generateChebyshev(const QString& filename, double e_ripple, int n, int points);
+
 MainWindow::MainWindow(QWidget *parent)
         : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -37,6 +39,8 @@ void MainWindow::generateCSV()
     const int n = 6;  // Filter order for 6th degree
 
     generateButterworth( "bnf_response.csv", n, 3, 200);
+
+    generateChebyshev("cnf_response.csv",0.12,6,200);
 
     std::ofstream lpfFile("lpf_response.csv");
     if (!lpfFile.is_open())
@@ -288,6 +292,59 @@ void denormalizeBPF(const std::string& inputFilename, const std::string& outputF
 
     inputFile.close();
     outputFile.close();
+}
+
+void generateChebyshev(const QString& filename, double e_ripple, int n, int points) {
+    std::ofstream csvFile(filename.toStdString());
+    if (!csvFile.is_open()) {
+        QMessageBox::critical(nullptr, "Hata", "CSV dosyası oluşturulamadı!");
+        return;
+    }
+
+    std::vector<std::complex<double>> poles(n);
+    double sinhFactor = std::asinh(1.0 / e_ripple) / n;
+
+    for (int k = 0; k < n; ++k) {
+        double angle = (2.0 * k + 1) * M_PI / (2.0 * n);
+        double D_Re = -std::sin(angle) * std::sinh(sinhFactor);
+        double D_Im = std::cos(angle) * std::cosh(sinhFactor);
+        poles[k] = std::complex<double>(D_Re, D_Im);
+    }
+
+    // İkinci dereceden polinomların katsayılarının hesaplanması
+    std::vector<std::vector<double>> Hch;
+    for (int k = 0; k < (n + 1) / 2; ++k) {
+        if (k == n - k - 1) {
+            // Reel kök varsa, ayrı ele alınır
+            Hch.push_back({0, 1, -poles[k].real()});
+        } else {
+            // Eşlenik kökler için polinom çarpımı
+            std::complex<double> p1 = poles[k];
+            std::complex<double> p2 = poles[n - k - 1];
+            Hch.push_back({1, -(p1.real() + p2.real()), (p1 * p2).real()});
+        }
+    }
+
+    // Frekans ve genlik hesaplaması
+    for (int l = 1; l <= points; ++l) {
+        double w = 2.0 * l / points;
+        double Nw = 1.0;
+        double Dw = 1.0;
+
+        for (const auto& poly : Hch) {
+            // H(s) -> H(jw) dönüşümü ve genlik hesaplaması
+            std::complex<double> jw(0, w);
+            std::complex<double> denominator = poly[0] * std::pow(jw, 2) + poly[1] * jw + poly[2];
+            Nw *= std::abs(poly[2]); // Sadece sabit pay
+            Dw *= std::abs(denominator);
+        }
+
+        double Hw = Nw / Dw;
+        csvFile << w << "," << Hw << "\n";
+    }
+
+    csvFile.close();
+    QMessageBox::information(nullptr, "Başarılı", "CSV dosyası başarıyla oluşturuldu!");
 }
 
 void MainWindow::generateButterworthCSV() {
