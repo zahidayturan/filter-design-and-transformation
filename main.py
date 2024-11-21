@@ -14,7 +14,7 @@ def read_csv(filename):
         raise ValueError(f"Error reading the file '{filename}': {e}")
 
 
-def plot_frequency_response(freqs, amplitudes, title="Frequency Response"):
+def plot_frequency_response(freqs, amplitudes, title="Frequency Response",filename=""):
     min_amplitude = 1e-12
     amplitudes = [max(amp, min_amplitude) for amp in amplitudes]
 
@@ -23,7 +23,7 @@ def plot_frequency_response(freqs, amplitudes, title="Frequency Response"):
 
     plt.figure(figsize=(10, 6))
     plt.plot(freqs, amplitudes)
-    plt.title(title)
+    plt.title(title+" - "+filename)
     plt.xlabel("Frequency (rad/s)")
     plt.ylabel("Magnitude (dB)")
     plt.grid(True, which="both", linestyle="--", linewidth=0.5)
@@ -48,6 +48,7 @@ if __name__ == "__main__":
 
     input_filename = sys.argv[1]
     valid_filename = validate_file_path(input_filename)
+    base_filename = os.path.basename(input_filename)
 
     freqs, amplitudes = read_csv(valid_filename)
-    plot_frequency_response(freqs, amplitudes, title="Butterworth Frequency Response")
+    plot_frequency_response(freqs, amplitudes, title="Butterworth Frequency Response", filename=base_filename)

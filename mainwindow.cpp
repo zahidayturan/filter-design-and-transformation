@@ -14,6 +14,8 @@
 
 using namespace std;
 
+void generateButterworth(const QString& filename, int n, double omegaMax, int points);
+
 MainWindow::MainWindow(QWidget *parent)
         : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -31,7 +33,10 @@ MainWindow::~MainWindow()
 void MainWindow::generateCSV()
 {
     const double omegaMax = 1000.0; // Maksimum omega değeri
-    const int points = 1000; // Verilecek frekans noktası sayısı
+    const int points = 200; // Verilecek frekans noktası sayısı
+    const int n = 6;  // Filter order for 6th degree
+
+    generateButterworth( "bnf_response.csv", n, 3, 200);
 
     std::ofstream lpfFile("lpf_response.csv");
     if (!lpfFile.is_open())
@@ -59,7 +64,6 @@ void MainWindow::generateCSV()
     const double bpf_wc = 310.0;  // BPF merkez frekansı (rad/s)
     const double bpf_bw = 95.0;   // BPF band genişliği (rad/s)
 
-    const int n = 6;  // Filter order for 6th degree
 
     // Helper function for calculating Butterworth filter poles
     auto calculatePoles = [](int n) {
