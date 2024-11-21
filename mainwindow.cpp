@@ -18,6 +18,8 @@ void generateButterworth(const QString& filename, int n, double omegaMax, int po
 
 void generateChebyshev(const QString& filename, double e_ripple, int n, int points);
 
+void generateInverseChebyshev(const QString& filename, double e_ripple, int n, int points);
+
 MainWindow::MainWindow(QWidget *parent)
         : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -41,6 +43,8 @@ void MainWindow::generateCSV()
     generateButterworth( "bnf_response.csv", n, 3, 200);
 
     generateChebyshev("cnf_response.csv",0.12,6,200);
+
+    generateInverseChebyshev("icnf_response.csv",0.19,6,200);
 
     std::ofstream lpfFile("lpf_response.csv");
     if (!lpfFile.is_open())
@@ -340,6 +344,86 @@ void generateChebyshev(const QString& filename, double e_ripple, int n, int poin
         }
 
         double Hw = Nw / Dw;
+        csvFile << w << "," << Hw << "\n";
+    }
+
+    csvFile.close();
+    QMessageBox::information(nullptr, "Başarılı", "CSV dosyası başarıyla oluşturuldu!");
+}
+
+void generateInverseChebyshev(const QString& filename, double e_ripple, int n, int points) {
+    std::ofstream csvFile(filename.toStdString());
+    if (!csvFile.is_open()) {
+        QMessageBox::critical(nullptr, "Hata", "CSV dosyası oluşturulamadı!");
+        return;
+    }
+
+    // Köklerin hesaplanması (kutuplar ve sıfırlar)
+    std::vector<std::complex<double>> poles(n);
+    std::vector<std::complex<double>> zeros(n);
+    double sinhFactor = std::asinh(1.0 / e_ripple) / n;
+
+    for (int k = 0; k < n; ++k) {
+        double angle = (2.0 * k + 1) * M_PI / (2.0 * n);
+        double D_Re = -std::sin(angle) * std::sinh(sinhFactor);
+        double D_Im = std::cos(angle) * std::cosh(sinhFactor);
+
+        poles[k] = 1.0 / std::complex<double>(D_Re, D_Im); // Kutuplar
+        zeros[k] = 1.0 / (-std::complex<double>(0, std::cos(angle))); // Sıfırlar
+    }
+
+    // Pay ve payda polinomlarının katsayılarının hesaplanması
+    std::vector<std::vector<double>> HcN; // Pay katsayıları
+    std::vector<std::vector<double>> HcD; // Payda katsayıları
+
+    for (int k = 0; k < (n + 1) / 2; ++k) {
+        if (k == n - k - 1) {
+            // Reel kök varsa
+            HcN.push_back({0, 0, 1});
+            HcD.push_back({0, 1, -poles[k].real()});
+        } else {
+            // Eşlenik kökler için polinom çarpımı
+            std::complex<double> z1 = zeros[k];
+            std::complex<double> z2 = zeros[n - k - 1];
+            std::complex<double> p1 = poles[k];
+            std::complex<double> p2 = poles[n - k - 1];
+
+            HcN.push_back({1, -(z1.real() + z2.real()), (z1 * z2).real()});
+            HcD.push_back({1, -(p1.real() + p2.real()), (p1 * p2).real()});
+        }
+    }
+
+    // Kazanç hesabı ve normalize etme
+    double gain = 1.0;
+    for (const auto& d : HcD) {
+        gain *= d[2]; // Payda sabiti
+    }
+    for (const auto& n : HcN) {
+        gain /= n[2]; // Pay sabiti
+    }
+    gain = std::pow(gain, 1.0 / ((n + 1) / 2));
+    for (auto& n : HcN) {
+        n[2] *= gain;
+    }
+
+    // Frekans ve genlik hesaplaması
+    for (int l = 1; l <= points; ++l) {
+        double w = 4.0 * l / points;
+        std::complex<double> Nw(1, 0);
+        std::complex<double> Dw(1, 0);
+
+        for (size_t k = 0; k < HcN.size(); ++k) {
+            std::complex<double> jw(0, w);
+
+            // HcN(jw) ve HcD(jw) çarpanlarını hesapla
+            std::complex<double> num = HcN[k][0] * std::pow(jw, 2) + HcN[k][1] * jw + HcN[k][2];
+            std::complex<double> den = HcD[k][0] * std::pow(jw, 2) + HcD[k][1] * jw + HcD[k][2];
+
+            Nw *= num;
+            Dw *= den;
+        }
+
+        double Hw = std::abs(Nw / Dw);
         csvFile << w << "," << Hw << "\n";
     }
 
