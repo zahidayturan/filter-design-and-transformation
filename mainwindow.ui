@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1103</width>
-    <height>248</height>
+    <height>418</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,7 +23,7 @@
    <property name="autoFillBackground">
     <bool>false</bool>
    </property>
-   <layout class="QVBoxLayout" stretch="0,0">
+   <layout class="QVBoxLayout" stretch="0,0,0">
     <property name="spacing">
      <number>50</number>
     </property>
@@ -63,7 +63,7 @@
          <string notr="true">background-color: rgb(255, 255, 255);</string>
         </property>
         <property name="text">
-         <string>CSV Dosyası Oluştur</string>
+         <string>Bütün Dosyaları Oluştur</string>
         </property>
        </widget>
       </item>
@@ -86,7 +86,7 @@
          <string notr="true">background-color: rgb(255, 255, 255);</string>
         </property>
         <property name="text">
-         <string>Grafiği Göster</string>
+         <string>Manuel Grafik Göster</string>
         </property>
         <property name="checkable">
          <bool>false</bool>
@@ -94,6 +94,16 @@
        </widget>
       </item>
      </layout>
+    </item>
+    <item>
+     <widget class="QComboBox" name="comboBox">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="placeholderText">
+       <string>Oluşturulan Grafiklerden Seç</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

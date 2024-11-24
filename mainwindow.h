@@ -20,6 +20,9 @@ private slots:
     void generateButterworthCSV();
 
 private:
+    void populateComboBox();
+
+private:
     Ui::MainWindow *ui;
 };
 #endif

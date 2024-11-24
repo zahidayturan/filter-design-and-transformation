@@ -210,6 +210,7 @@ C:/Users/ismet/CLionProjects/filter-design/mainwindow.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtCore/q20memory.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtCore/q20type_traits.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtCore/q23utility.h
+ mdp:C:/Qt/6.8.0/mingw_64/include/QtCore/qabstractitemmodel.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtCore/qalgorithms.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtCore/qanystringview.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtCore/qarraydata.h
@@ -286,6 +287,7 @@ C:/Users/ismet/CLionProjects/filter-design/mainwindow.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtCore/qprocessordetection.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtCore/qrect.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtCore/qrefcount.h
+ mdp:C:/Qt/6.8.0/mingw_64/include/QtCore/qregularexpression.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtCore/qscopedpointer.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtCore/qscopeguard.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtCore/qset.h
@@ -367,9 +369,11 @@ C:/Users/ismet/CLionProjects/filter-design/mainwindow.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtGui/qtguiexports.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtGui/qtguiglobal.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtGui/qtransform.h
+ mdp:C:/Qt/6.8.0/mingw_64/include/QtGui/qvalidator.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtGui/qwindowdefs.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtGui/qwindowdefs_win.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/QApplication
+ mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/QComboBox
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/QHBoxLayout
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/QLineEdit
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/QMainWindow
@@ -377,8 +381,12 @@ C:/Users/ismet/CLionProjects/filter-design/mainwindow.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/QVBoxLayout
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/QWidget
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qabstractbutton.h
+ mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qabstractitemdelegate.h
+ mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qabstractslider.h
+ mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qabstractspinbox.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qapplication.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qboxlayout.h
+ mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qcombobox.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qframe.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qgridlayout.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qlayout.h
@@ -386,7 +394,12 @@ C:/Users/ismet/CLionProjects/filter-design/mainwindow.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qlineedit.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qmainwindow.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qpushbutton.h
+ mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qrubberband.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qsizepolicy.h
+ mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qslider.h
+ mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qstyle.h
+ mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qstyleoption.h
+ mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qtabbar.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qtabwidget.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qtwidgets-config.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qtwidgetsexports.h

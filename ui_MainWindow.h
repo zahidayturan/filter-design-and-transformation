@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
@@ -30,12 +31,13 @@ public:
     QPushButton *csvButton;
     QPushButton *butterworthButton;
     QPushButton *graphButton;
+    QComboBox *comboBox;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(1103, 248);
+        MainWindow->resize(1103, 418);
         MainWindow->setAutoFillBackground(false);
         MainWindow->setStyleSheet(QString::fromUtf8("background-color: rgb(57, 57, 57);"));
         centralwidget = new QWidget(MainWindow);
@@ -78,6 +80,11 @@ public:
 
         vboxLayout->addLayout(horizontalLayout);
 
+        comboBox = new QComboBox(centralwidget);
+        comboBox->setObjectName("comboBox");
+
+        vboxLayout->addWidget(comboBox);
+
         MainWindow->setCentralWidget(centralwidget);
 
         retranslateUi(MainWindow);
@@ -89,9 +96,13 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         lineEdit->setText(QCoreApplication::translate("MainWindow", "Input", nullptr));
-        csvButton->setText(QCoreApplication::translate("MainWindow", "CSV Dosyas\304\261 Olu\305\237tur", nullptr));
+        csvButton->setText(QCoreApplication::translate("MainWindow", "B\303\274t\303\274n Dosyalar\304\261 Olu\305\237tur", nullptr));
         butterworthButton->setText(QCoreApplication::translate("MainWindow", "Butterworth CSV", nullptr));
-        graphButton->setText(QCoreApplication::translate("MainWindow", "Grafi\304\237i G\303\266ster", nullptr));
+        graphButton->setText(QCoreApplication::translate("MainWindow", "Manuel Grafik G\303\266ster", nullptr));
+#if QT_CONFIG(tooltip)
+        comboBox->setToolTip(QString());
+#endif // QT_CONFIG(tooltip)
+        comboBox->setPlaceholderText(QCoreApplication::translate("MainWindow", "Olu\305\237turulan Grafiklerden Se\303\247", nullptr));
     } // retranslateUi
 
 };

@@ -27,6 +27,9 @@ add_executable(Filter
         mainwindow.cpp
         mainwindow.ui
         )
+set(FORMS
+        mainwindow.ui
+        )
 target_link_libraries(Filter
         PRIVATE
         Qt::Core

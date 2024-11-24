@@ -27,10 +27,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->csvButton, &QPushButton::clicked, this, &MainWindow::generateCSV);
     connect(ui->butterworthButton, &QPushButton::clicked, this, &MainWindow::generateButterworthCSV);
     connect(ui->graphButton, &QPushButton::clicked, this, &MainWindow::showGraph);
+    populateComboBox();
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     delete ui;
 }
 
@@ -459,6 +459,18 @@ void MainWindow::generateButterworthCSV() {
 
     } catch (const std::exception& e) {
         std::cerr << "Hata: " << e.what() << std::endl;
+    }
+}
+
+void MainWindow::populateComboBox() {
+    QDir dir(QDir::currentPath());
+    QStringList filters;
+    filters << "*.csv";
+    QStringList fileList = dir.entryList(filters, QDir::Files);
+
+    ui->comboBox->clear();
+    for (const QString &file : fileList) {
+        ui->comboBox->addItem(file);
     }
 }
 
