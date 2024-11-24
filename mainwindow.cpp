@@ -28,6 +28,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->butterworthButton, &QPushButton::clicked, this, &MainWindow::generateButterworthCSV);
     connect(ui->graphButton, &QPushButton::clicked, this, &MainWindow::showGraph);
     populateComboBox();
+    connect(ui->comboBox, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, &MainWindow::onComboBoxSelectionChanged);
 }
 
 MainWindow::~MainWindow() {
@@ -471,6 +473,36 @@ void MainWindow::populateComboBox() {
     ui->comboBox->clear();
     for (const QString &file : fileList) {
         ui->comboBox->addItem(file);
+    }
+}
+
+void MainWindow::onComboBoxSelectionChanged(int index) {
+    if (index >= 0) {
+        QString selectedFile = ui->comboBox->itemText(index);
+        showGraphWithPath(selectedFile);
+    }
+}
+
+void MainWindow::showGraphWithPath(const QString &filename) {
+    if (!filename.isEmpty()) {
+        auto *process = new QProcess(this);
+
+        QDir currentDir(QDir::currentPath());
+        currentDir.cdUp();
+        QString scriptPath = currentDir.filePath("main.py");
+        QString program = currentDir.filePath("venv/Scripts/python.exe");
+        QStringList arguments;
+        arguments << scriptPath << filename;
+
+        process->start(program, arguments);
+
+        connect(process, &QProcess::readyReadStandardOutput, [process]() {
+            qDebug() << "Python output:" << process->readAllStandardOutput();
+        });
+
+        connect(process, &QProcess::readyReadStandardError, [process]() {
+            qDebug() << "Python error output:" << process->readAllStandardError();
+        });
     }
 }
 

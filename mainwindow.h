@@ -17,13 +17,13 @@ public:
 private slots:
     void generateCSV();
     void showGraph();
-    void generateButterworthCSV();
-
-private:
-    void populateComboBox();
+    static void generateButterworthCSV();
+    void showGraphWithPath(const QString &filename);
 
 private:
     Ui::MainWindow *ui;
+    void populateComboBox();
+    void onComboBoxSelectionChanged(int index);
 };
 #endif
 
