@@ -15,14 +15,16 @@ public:
     ~MainWindow() override;
 
 private slots:
-    void generateCSV();
-    void showGraph();
+    void generateButterworthCSV();
+    void generateChebyshevCSV();
+    void generateInverseChebyshevCSV();
     void showGraphWithPath(const QString &filename);
 
 private:
     Ui::MainWindow *ui;
     void populateComboBox();
     void onComboBoxSelectionChanged(int index);
+    static void clearAllFiles();
 };
 #endif
 
