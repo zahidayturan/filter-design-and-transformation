@@ -24,9 +24,9 @@ MainWindow::MainWindow(QWidget *parent)
         : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    connect(ui->csvButton, &QPushButton::clicked, this, &MainWindow::generateCSV);
-    connect(ui->butterworthButton, &QPushButton::clicked, this, &MainWindow::generateButterworthCSV);
-    connect(ui->graphButton, &QPushButton::clicked, this, &MainWindow::showGraph);
+    //connect(ui->csvButton, &QPushButton::clicked, this, &MainWindow::generateCSV);
+    //connect(ui->butterworthButton, &QPushButton::clicked, this, &MainWindow::generateButterworthCSV);
+    //connect(ui->graphButton, &QPushButton::clicked, this, &MainWindow::showGraph);
     populateComboBox();
     connect(ui->comboBox, QOverload<int>::of(&QComboBox::currentIndexChanged),
             this, &MainWindow::onComboBoxSelectionChanged);
@@ -431,37 +431,6 @@ void generateInverseChebyshev(const QString& filename, double e_ripple, int n, i
 
     csvFile.close();
     QMessageBox::information(nullptr, "Başarılı", "CSV dosyası başarıyla oluşturuldu!");
-}
-
-void MainWindow::generateButterworthCSV() {
-    const QString filename = "butterworth_response.csv";
-    const int filterOrder = 6;
-    const double omegaMax = 3.0;
-    const int points = 200;
-
-    generateButterworth(filename, filterOrder, omegaMax, points);
-    std::cout << "Normalize butterworth butterworth_response.csv dosyasına yazıldı." << std::endl;
-
-    try {
-        const std::string inputFilename = "butterworth_response.csv";
-
-        double omegaLPF = 340.0;   // LPF köşe frekansı
-        double omegaHPF = 130.0;   // HPF köşe frekansı
-        double omegaBPF = 310.0;   // BPF merkez frekansı
-        double BW = 95.0;          // BPF bant genişliği
-
-        denormalizeLPF(inputFilename, "lpf_response.csv", omegaLPF);
-        std::cout << "LPF frekans cevabı lpf_response.csv dosyasına yazıldı." << std::endl;
-
-        denormalizeHPF(inputFilename, "hpf_response.csv", omegaHPF);
-        std::cout << "HPF frekans cevabı hpf_response.csv dosyasına yazıldı." << std::endl;
-
-        denormalizeBPF(inputFilename, "bpf_response.csv", omegaBPF, BW);
-        std::cout << "BPF frekans cevabı bpf_response.csv dosyasına yazıldı." << std::endl;
-
-    } catch (const std::exception& e) {
-        std::cerr << "Hata: " << e.what() << std::endl;
-    }
 }
 
 void MainWindow::populateComboBox() {

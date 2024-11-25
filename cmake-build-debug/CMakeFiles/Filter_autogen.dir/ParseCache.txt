@@ -355,6 +355,7 @@ C:/Users/ismet/CLionProjects/filter-design/mainwindow.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtGui/qpaintdevice.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtGui/qpalette.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtGui/qpen.h
+ mdp:C:/Qt/6.8.0/mingw_64/include/QtGui/qpicture.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtGui/qpixelformat.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtGui/qpixmap.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtGui/qpolygon.h
@@ -375,9 +376,11 @@ C:/Users/ismet/CLionProjects/filter-design/mainwindow.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/QApplication
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/QComboBox
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/QHBoxLayout
+ mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/QLabel
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/QLineEdit
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/QMainWindow
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/QPushButton
+ mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/QRadioButton
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/QVBoxLayout
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/QWidget
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qabstractbutton.h
@@ -389,11 +392,13 @@ C:/Users/ismet/CLionProjects/filter-design/mainwindow.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qcombobox.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qframe.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qgridlayout.h
+ mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qlabel.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qlayout.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qlayoutitem.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qlineedit.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qmainwindow.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qpushbutton.h
+ mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qradiobutton.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qrubberband.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qsizepolicy.h
  mdp:C:/Qt/6.8.0/mingw_64/include/QtWidgets/qslider.h

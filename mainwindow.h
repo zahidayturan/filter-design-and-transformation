@@ -17,7 +17,6 @@ public:
 private slots:
     void generateCSV();
     void showGraph();
-    static void generateButterworthCSV();
     void showGraphWithPath(const QString &filename);
 
 private:

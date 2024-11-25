@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1103</width>
-    <height>418</height>
+    <width>984</width>
+    <height>695</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,15 +17,17 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(57, 57, 57);</string>
+   <string notr="true">background-color: rgb(47, 79, 91);
+font: 10pt &quot;Montserrat&quot;;
+color: rgb(252, 252, 252);</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
+  <widget class="QWidget" name="main_widget">
    <property name="autoFillBackground">
     <bool>false</bool>
    </property>
-   <layout class="QVBoxLayout" stretch="0,0,0">
+   <layout class="QVBoxLayout" stretch="0">
     <property name="spacing">
-     <number>50</number>
+     <number>100</number>
     </property>
     <property name="sizeConstraint">
      <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
@@ -43,67 +45,574 @@
      <number>50</number>
     </property>
     <item>
-     <widget class="QLineEdit" name="lineEdit">
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 255, 255);</string>
+     <layout class="QVBoxLayout" name="main_vertical">
+      <property name="spacing">
+       <number>50</number>
       </property>
-      <property name="text">
-       <string>Input</string>
+      <property name="topMargin">
+       <number>0</number>
       </property>
-     </widget>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPushButton" name="csvButton">
-        <property name="autoFillBackground">
-         <bool>false</bool>
+       <layout class="QHBoxLayout" name="app_bar">
+        <property name="spacing">
+         <number>10</number>
         </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);</string>
+        <property name="bottomMargin">
+         <number>0</number>
         </property>
-        <property name="text">
-         <string>Bütün Dosyaları Oluştur</string>
-        </property>
-       </widget>
+        <item>
+         <widget class="QLabel" name="title">
+          <property name="styleSheet">
+           <string notr="true">font: 900 16pt &quot;Montserrat Black&quot;;
+color: rgb(220, 238, 241);</string>
+          </property>
+          <property name="text">
+           <string>FİLTRE DÖNÜŞÜM</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="reload">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(62, 139, 156);
+border-radius: 4px;
+padding: 4px;</string>
+          </property>
+          <property name="text">
+           <string>Programı Sıfırla</string>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+          <property name="default">
+           <bool>false</bool>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
-       <widget class="QPushButton" name="butterworthButton">
-        <property name="text">
-         <string>Butterworth CSV</string>
+       <layout class="QHBoxLayout" name="app_menu">
+        <property name="spacing">
+         <number>50</number>
         </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="graphButton">
-        <property name="enabled">
-         <bool>true</bool>
+        <property name="sizeConstraint">
+         <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
         </property>
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);</string>
-        </property>
-        <property name="text">
-         <string>Manuel Grafik Göster</string>
-        </property>
-        <property name="checkable">
-         <bool>false</bool>
-        </property>
-       </widget>
+        <item>
+         <layout class="QVBoxLayout" name="input_menu" stretch="0,0,0,0,0,0,0">
+          <property name="spacing">
+           <number>20</number>
+          </property>
+          <property name="sizeConstraint">
+           <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <layout class="QVBoxLayout" name="input_lpf">
+            <property name="spacing">
+             <number>4</number>
+            </property>
+            <property name="sizeConstraint">
+             <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_lpf">
+              <property name="text">
+               <string>LPF Köşe Frekansı (ωp) rad/s</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="edit_lpf">
+              <property name="autoFillBackground">
+               <bool>false</bool>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border-color: rgb(24, 43, 52);</string>
+              </property>
+              <property name="text">
+               <string>340</string>
+              </property>
+              <property name="frame">
+               <bool>true</bool>
+              </property>
+              <property name="placeholderText">
+               <string>LPF Köşe Frekansı (ωp) rad/s</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="input_hpf">
+            <property name="spacing">
+             <number>4</number>
+            </property>
+            <property name="sizeConstraint">
+             <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_hpf">
+              <property name="text">
+               <string>HPF Köşe Frekansı (ωp) rad/s</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="edit_hpf">
+              <property name="text">
+               <string>130</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="input_bpf">
+            <property name="spacing">
+             <number>4</number>
+            </property>
+            <property name="sizeConstraint">
+             <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_bpf">
+              <property name="text">
+               <string>BPF Merkez Frekansı (ωC)  rad/s</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="edit_bpf">
+              <property name="text">
+               <string>310</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="input_bw">
+            <property name="spacing">
+             <number>4</number>
+            </property>
+            <property name="sizeConstraint">
+             <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_bw">
+              <property name="text">
+               <string>Band Aralıkları (BW) rad/s</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="edit_bw">
+              <property name="text">
+               <string>95</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="input_c">
+            <property name="spacing">
+             <number>4</number>
+            </property>
+            <property name="sizeConstraint">
+             <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_c">
+              <property name="text">
+               <string>Chebyshev Filtre Salınım Aralığı (ε)</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="edit_c">
+              <property name="text">
+               <string>0.12</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="input_i">
+            <property name="spacing">
+             <number>4</number>
+            </property>
+            <property name="sizeConstraint">
+             <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_i">
+              <property name="text">
+               <string>Ters Chebyshev Filtre Salınım Aralığı (ε)</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="line_i">
+              <property name="text">
+               <string>0.19</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="input_d">
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_d">
+              <property name="text">
+               <string>Filtre Derecesi</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="edit_d">
+              <property name="text">
+               <string>6</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="output_menu">
+          <property name="spacing">
+           <number>20</number>
+          </property>
+          <item>
+           <layout class="QVBoxLayout" name="b_output">
+            <property name="spacing">
+             <number>4</number>
+            </property>
+            <property name="sizeConstraint">
+             <enum>QLayout::SizeConstraint::SetFixedSize</enum>
+            </property>
+            <item>
+             <widget class="QLabel" name="b_title">
+              <property name="styleSheet">
+               <string notr="true">font: 900 11pt &quot;Montserrat Black&quot;;</string>
+              </property>
+              <property name="text">
+               <string>Butterworth</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="b_actives">
+              <property name="spacing">
+               <number>10</number>
+              </property>
+              <property name="sizeConstraint">
+               <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
+              </property>
+              <item>
+               <widget class="QRadioButton" name="bl_active">
+                <property name="acceptDrops">
+                 <bool>false</bool>
+                </property>
+                <property name="text">
+                 <string>Alçak Filtre</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+                <property name="autoExclusive">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="bh_active">
+                <property name="text">
+                 <string>Yüksek Filtre</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+                <property name="autoRepeat">
+                 <bool>false</bool>
+                </property>
+                <property name="autoExclusive">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="bb_active">
+                <property name="styleSheet">
+                 <string notr="true">font: 10pt &quot;Montserrat&quot;;</string>
+                </property>
+                <property name="text">
+                 <string>Band Geçiren Filtre</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+                <property name="autoRepeat">
+                 <bool>false</bool>
+                </property>
+                <property name="autoExclusive">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="b_buttons">
+              <property name="spacing">
+               <number>10</number>
+              </property>
+              <property name="sizeConstraint">
+               <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
+              </property>
+              <item>
+               <widget class="QPushButton" name="b_create">
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(24, 43, 52);
+border-radius: 4px;
+padding: 8px;</string>
+                </property>
+                <property name="text">
+                 <string>Grafikleri Oluştur</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="c_output">
+            <property name="spacing">
+             <number>4</number>
+            </property>
+            <property name="sizeConstraint">
+             <enum>QLayout::SizeConstraint::SetFixedSize</enum>
+            </property>
+            <item>
+             <widget class="QLabel" name="c_title">
+              <property name="styleSheet">
+               <string notr="true">font: 900 11pt &quot;Montserrat Black&quot;;</string>
+              </property>
+              <property name="text">
+               <string>Chebyshev</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="c_actives">
+              <property name="spacing">
+               <number>10</number>
+              </property>
+              <property name="sizeConstraint">
+               <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
+              </property>
+              <item>
+               <widget class="QRadioButton" name="cl_active">
+                <property name="text">
+                 <string>Alçak Filtre</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+                <property name="autoExclusive">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="ch_active">
+                <property name="text">
+                 <string>Yüksek Filtre</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+                <property name="autoExclusive">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="cb_active">
+                <property name="text">
+                 <string>Band Geçiren Filtre</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+                <property name="autoExclusive">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="c_buttons">
+              <property name="spacing">
+               <number>10</number>
+              </property>
+              <property name="sizeConstraint">
+               <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
+              </property>
+              <item>
+               <widget class="QPushButton" name="c_create">
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(24, 43, 52);
+border-radius: 4px;
+padding: 8px;</string>
+                </property>
+                <property name="text">
+                 <string>Grafikleri Oluştur</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="i_output">
+            <property name="spacing">
+             <number>4</number>
+            </property>
+            <property name="sizeConstraint">
+             <enum>QLayout::SizeConstraint::SetFixedSize</enum>
+            </property>
+            <item>
+             <widget class="QLabel" name="i_title">
+              <property name="styleSheet">
+               <string notr="true">font: 900 11pt &quot;Montserrat Black&quot;;</string>
+              </property>
+              <property name="text">
+               <string>Ters Chebyshev</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="i_actives">
+              <property name="spacing">
+               <number>10</number>
+              </property>
+              <property name="sizeConstraint">
+               <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
+              </property>
+              <item>
+               <widget class="QRadioButton" name="il_active">
+                <property name="text">
+                 <string>Alçak Filtre</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+                <property name="autoExclusive">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="ih_active">
+                <property name="text">
+                 <string>Yüksek Filtre</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+                <property name="autoExclusive">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="ib_active">
+                <property name="text">
+                 <string>Band Geçiren Filtre</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+                <property name="autoExclusive">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="i_buttons">
+              <property name="spacing">
+               <number>10</number>
+              </property>
+              <property name="sizeConstraint">
+               <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
+              </property>
+              <item>
+               <widget class="QPushButton" name="i_create">
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(24, 43, 52);
+border-radius: 4px;
+padding: 8px;</string>
+                </property>
+                <property name="text">
+                 <string>Grafikleri Oluştur</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(241, 249, 250);
+font: 10pt &quot;Montserrat&quot;;
+border-radius: 4px;
+padding: 8px;
+color: rgb(24, 43, 52);</string>
+            </property>
+            <property name="placeholderText">
+             <string>Oluşturulan Grafiklerden Görüntüle</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </item>
      </layout>
-    </item>
-    <item>
-     <widget class="QComboBox" name="comboBox">
-      <property name="toolTip">
-       <string/>
-      </property>
-      <property name="placeholderText">
-       <string>Oluşturulan Grafiklerden Seç</string>
-      </property>
-     </widget>
     </item>
    </layout>
   </widget>
