@@ -86,7 +86,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(984, 695);
+        MainWindow->resize(984, 683);
         MainWindow->setAutoFillBackground(false);
         MainWindow->setStyleSheet(QString::fromUtf8("background-color: rgb(47, 79, 91);\n"
 "font: 10pt \"Montserrat\";\n"
@@ -147,11 +147,13 @@ public:
         input_lpf->setSizeConstraint(QLayout::SizeConstraint::SetMinimumSize);
         label_lpf = new QLabel(main_widget);
         label_lpf->setObjectName("label_lpf");
+        label_lpf->setMaximumSize(QSize(380, 16777215));
 
         input_lpf->addWidget(label_lpf);
 
         edit_lpf = new QLineEdit(main_widget);
         edit_lpf->setObjectName("edit_lpf");
+        edit_lpf->setMaximumSize(QSize(380, 16777215));
         edit_lpf->setAutoFillBackground(false);
         edit_lpf->setStyleSheet(QString::fromUtf8("border-color: rgb(24, 43, 52);"));
         edit_lpf->setFrame(true);
@@ -167,11 +169,13 @@ public:
         input_hpf->setSizeConstraint(QLayout::SizeConstraint::SetMinimumSize);
         label_hpf = new QLabel(main_widget);
         label_hpf->setObjectName("label_hpf");
+        label_hpf->setMaximumSize(QSize(380, 16777215));
 
         input_hpf->addWidget(label_hpf);
 
         edit_hpf = new QLineEdit(main_widget);
         edit_hpf->setObjectName("edit_hpf");
+        edit_hpf->setMaximumSize(QSize(380, 16777215));
 
         input_hpf->addWidget(edit_hpf);
 
@@ -184,11 +188,13 @@ public:
         input_bpf->setSizeConstraint(QLayout::SizeConstraint::SetMinimumSize);
         label_bpf = new QLabel(main_widget);
         label_bpf->setObjectName("label_bpf");
+        label_bpf->setMaximumSize(QSize(380, 16777215));
 
         input_bpf->addWidget(label_bpf);
 
         edit_bpf = new QLineEdit(main_widget);
         edit_bpf->setObjectName("edit_bpf");
+        edit_bpf->setMaximumSize(QSize(380, 16777215));
 
         input_bpf->addWidget(edit_bpf);
 
@@ -201,11 +207,13 @@ public:
         input_bw->setSizeConstraint(QLayout::SizeConstraint::SetMinimumSize);
         label_bw = new QLabel(main_widget);
         label_bw->setObjectName("label_bw");
+        label_bw->setMaximumSize(QSize(380, 16777215));
 
         input_bw->addWidget(label_bw);
 
         edit_bw = new QLineEdit(main_widget);
         edit_bw->setObjectName("edit_bw");
+        edit_bw->setMaximumSize(QSize(380, 16777215));
 
         input_bw->addWidget(edit_bw);
 
@@ -218,11 +226,13 @@ public:
         input_c->setSizeConstraint(QLayout::SizeConstraint::SetMinimumSize);
         label_c = new QLabel(main_widget);
         label_c->setObjectName("label_c");
+        label_c->setMaximumSize(QSize(380, 16777215));
 
         input_c->addWidget(label_c);
 
         edit_c = new QLineEdit(main_widget);
         edit_c->setObjectName("edit_c");
+        edit_c->setMaximumSize(QSize(380, 16777215));
 
         input_c->addWidget(edit_c);
 
@@ -235,11 +245,13 @@ public:
         input_i->setSizeConstraint(QLayout::SizeConstraint::SetMinimumSize);
         label_i = new QLabel(main_widget);
         label_i->setObjectName("label_i");
+        label_i->setMaximumSize(QSize(380, 16777215));
 
         input_i->addWidget(label_i);
 
         line_i = new QLineEdit(main_widget);
         line_i->setObjectName("line_i");
+        line_i->setMaximumSize(QSize(380, 16777215));
 
         input_i->addWidget(line_i);
 
@@ -251,11 +263,13 @@ public:
         input_d->setContentsMargins(-1, -1, -1, 0);
         label_d = new QLabel(main_widget);
         label_d->setObjectName("label_d");
+        label_d->setMaximumSize(QSize(380, 16777215));
 
         input_d->addWidget(label_d);
 
         edit_d = new QLineEdit(main_widget);
         edit_d->setObjectName("edit_d");
+        edit_d->setMaximumSize(QSize(380, 16777215));
 
         input_d->addWidget(edit_d);
 

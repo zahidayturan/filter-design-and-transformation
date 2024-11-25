@@ -12,12 +12,21 @@
 #include <QString>
 
 using namespace std;
+const double omegaMax = 1000.0;
+const double omegaMin = 3.0;
+const int points = 200;
+const int n = 6;
+const double e_ripple = 0.12;
+const double ice_ripple = 0.19;
+const double lpf_wp = 340.0;
+const double hpf_wp = 130.0;
+const double bpf_wc = 310.0;
+const double bpf_bw = 95.0;
 
-void generateButterworth(const QString& filename, int n, double omegaMax, int points);
+void generateButterworth(const QString& filename);
+void generateChebyshev(const QString& filename);
+void generateInverseChebyshev(const QString& filename);
 
-void generateChebyshev(const QString& filename, double e_ripple, int n, int points);
-
-void generateInverseChebyshev(const QString& filename, double e_ripple, int n, int points);
 
 MainWindow::MainWindow(QWidget *parent)
         : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -36,7 +45,7 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
-void generateButterworth(const QString& filename, int n, double omegaMax, int points) {
+void generateButterworth(const QString& filename) {
     std::ofstream csvFile(filename.toStdString());
     if (!csvFile.is_open()) {
         QMessageBox::critical(nullptr, "Hata", "Butterworth normalize dosyası oluşturulamadı!");
@@ -44,7 +53,7 @@ void generateButterworth(const QString& filename, int n, double omegaMax, int po
     }
 
     for (int l = 0; l < points; ++l) {
-        double omega = (omegaMax / points) * l;
+        double omega = (omegaMin / points) * l;
         double Hw = 1.0 / std::sqrt(1.0 + std::pow(omega / 1.0, 2 * n));
         //normalize edildiği için / 1.0
         csvFile << omega << "," << Hw << "\n";
@@ -53,7 +62,7 @@ void generateButterworth(const QString& filename, int n, double omegaMax, int po
     csvFile.close();
 }
 
-void generateChebyshev(const QString& filename, double e_ripple, int n, int points) {
+void generateChebyshev(const QString& filename) {
     std::ofstream csvFile(filename.toStdString());
     if (!csvFile.is_open()) {
         QMessageBox::critical(nullptr, "Hata", "Chebyshev normalize dosyası oluşturulamadı!");
@@ -105,7 +114,7 @@ void generateChebyshev(const QString& filename, double e_ripple, int n, int poin
     csvFile.close();
 }
 
-void generateInverseChebyshev(const QString& filename, double e_ripple, int n, int points) {
+void generateInverseChebyshev(const QString& filename) {
     std::ofstream csvFile(filename.toStdString());
     if (!csvFile.is_open()) {
         QMessageBox::critical(nullptr, "Hata", "Inverse Chebyshev normalize dosyası oluşturulamadı!");
@@ -115,7 +124,7 @@ void generateInverseChebyshev(const QString& filename, double e_ripple, int n, i
     // Köklerin hesaplanması (kutuplar ve sıfırlar)
     std::vector<std::complex<double>> poles(n);
     std::vector<std::complex<double>> zeros(n);
-    double sinhFactor = std::asinh(1.0 / e_ripple) / n;
+    double sinhFactor = std::asinh(1.0 / ice_ripple) / n;
 
     for (int k = 0; k < n; ++k) {
         double angle = (2.0 * k + 1) * M_PI / (2.0 * n);
@@ -186,38 +195,16 @@ void generateInverseChebyshev(const QString& filename, double e_ripple, int n, i
 
 void MainWindow::generateButterworthCSV()
 {
-    const double omegaMax = 1000.0;
-    const int points = 200;
-    const int n = 6;
-
-    generateButterworth( "butterworth_normalize.csv", n, 3, 200);
+    generateButterworth( "butterworth_normalize.csv");
 
     std::ofstream lpfFile("butterworth_low.csv");
-    if (!lpfFile.is_open())
-    {
-        QMessageBox::critical(this, "Hata", "LPF CSV dosyası oluşturulamadı!");
-        return;
-    }
-
     std::ofstream hpfFile("butterworth_high.csv");
-    if (!hpfFile.is_open())
-    {
-        QMessageBox::critical(this, "Hata", "HPF CSV dosyası oluşturulamadı!");
-        return;
-    }
-
     std::ofstream bpfFile("butterworth_band.csv");
-    if (!bpfFile.is_open())
-    {
-        QMessageBox::critical(this, "Hata", "BPF CSV dosyası oluşturulamadı!");
+
+    if (!lpfFile.is_open() || !hpfFile.is_open() || !bpfFile.is_open()) {
+        QMessageBox::critical(this, "Hata", "CSV dosyaları oluşturulamadı!");
         return;
     }
-
-    const double lpf_wp = 340.0;  // LPF köşe frekansı (rad/s)
-    const double hpf_wp = 130.0;  // HPF köşe frekansı (rad/s)
-    const double bpf_wc = 310.0;  // BPF merkez frekansı (rad/s)
-    const double bpf_bw = 95.0;   // BPF band genişliği (rad/s)
-
 
     // Helper function for calculating Butterworth filter poles
     auto calculatePoles = [](int n) {
@@ -281,198 +268,141 @@ void MainWindow::generateButterworthCSV()
     hpfFile.close();
     bpfFile.close();
 
+    populateComboBox();
+
     // Notify success
     QMessageBox::information(this, "Başarılı", "Butterworth grafikleri oluşturuldu!");
 }
 
-void MainWindow::generateChebyshevCSV()
-{
-    const double omegaMax = 1000.0;
-    const int points = 200;
-    const int n = 6;
-
-    generateChebyshev("chebyshev_normalize.csv",0.12,6,200);
-
-    //generateInverseChebyshev("icnf_response.csv",0.19,6,200);
+void MainWindow::generateChebyshevCSV() {
+    generateChebyshev("chebyshev_normalize.csv");
 
     std::ofstream lpfFile("chebyshev_low.csv");
-    if (!lpfFile.is_open())
-    {
-        QMessageBox::critical(this, "Hata", "LPF CSV dosyası oluşturulamadı!");
-        return;
-    }
-
     std::ofstream hpfFile("chebyshev_high.csv");
-    if (!hpfFile.is_open())
-    {
-        QMessageBox::critical(this, "Hata", "HPF CSV dosyası oluşturulamadı!");
-        return;
-    }
-
     std::ofstream bpfFile("chebyshev_band.csv");
-    if (!bpfFile.is_open())
-    {
-        QMessageBox::critical(this, "Hata", "BPF CSV dosyası oluşturulamadı!");
+
+    if (!lpfFile.is_open() || !hpfFile.is_open() || !bpfFile.is_open()) {
+        QMessageBox::critical(this, "Hata", "CSV dosyaları oluşturulamadı!");
         return;
     }
 
-    const double lpf_wp = 340.0;  // LPF köşe frekansı (rad/s)
-    const double hpf_wp = 130.0;  // HPF köşe frekansı (rad/s)
-    const double bpf_wc = 310.0;  // BPF merkez frekansı (rad/s)
-    const double bpf_bw = 95.0;   // BPF band genişliği (rad/s)
+    auto computeChebyshevResponse=[](double omega, const QString& type, double wp, double wc = 0.0, double bw = 0.0) {
+        double epsilon = std::sqrt(std::pow(10, 0.1 * e_ripple) - 1);
+        double Tn = 0.0;  // Varsayılan değer
+        double omegaTransformed;
 
-    auto calculatePoles = [](int n) {
-        vector<complex<double>> poles(n);
-        for (int k = 0; k < n; ++k) {
-            double theta = (2 * k + 1) * M_PI / (2 * n);
-            double realPart = -sin(theta);
-            double imagPart = cos(theta);
-            poles[k] = complex<double>(realPart, imagPart);
-        }
-        return poles;
-    };
-
-    auto computeFrequencyResponse = [](int n, const vector<complex<double>>& poles, double wp, double omega, const string& type, double wc = 0.0, double bw = 0.0) {
-        complex<double> jw(0.0, omega);
-        complex<double> s;
-
-        // Frequency transformation
         if (type == "LPF") {
-            s = jw / wp;
+            omegaTransformed = omega / wp;
         } else if (type == "HPF") {
-            s = wp / jw;
+            omegaTransformed = wp / omega;
         } else if (type == "BPF") {
-            s = (pow(jw, 2) + pow(wc, 2)) / (bw * jw);
+            if (std::abs(omega * bw) < 1e-6) {
+                return 0.0; // Bölme hatasını önlemek için sıfır döndür
+            }
+            omegaTransformed = (omega * omega - wc * wc) / (omega * bw);
         } else {
-            throw invalid_argument("Invalid filter type");
+            throw std::invalid_argument("Invalid filter type");
         }
 
-        complex<double> numerator = 1.0;
-        complex<double> denominator = 1.0;
-        for (int k = 0; k < n; ++k) {
-            denominator *= (s - poles[k]);
+        // Geçersiz omega değerlerini kontrol et
+        if (omegaTransformed < 1) {
+            Tn = std::cosh(n * std::acosh(omegaTransformed));
+        } else {
+            Tn = 0; // Geçersiz durumlarda sabit değer
         }
-        return abs(numerator / denominator);
+
+        double Hw = 1.0 / std::sqrt(1 + std::pow(epsilon * Tn, 2));
+        return std::isnan(Hw) ? 0.0 : Hw;  // NaN kontrolü
     };
 
-    vector<complex<double>> poles = calculatePoles(n);
-
     for (int i = 0; i < points; ++i) {
         double omega = (omegaMax / points) * i;
-        double lpfResponse = computeFrequencyResponse(n, poles, lpf_wp, omega, "LPF");
+
+        // LPF Response
+        double lpfResponse = computeChebyshevResponse(omega, "LPF", lpf_wp);
         lpfFile << omega << "," << lpfResponse << "\n";
-    }
 
-    for (int i = 0; i < points; ++i) {
-        double omega = (omegaMax / points) * i;
-        double hpfResponse = computeFrequencyResponse(n, poles, hpf_wp, omega, "HPF");
+        // HPF Response
+        double hpfResponse = computeChebyshevResponse(omega, "HPF", hpf_wp);
         hpfFile << omega << "," << hpfResponse << "\n";
-    }
 
-    for (int i = 0; i < points; ++i) {
-        double omega = (omegaMax / points) * i;
-        double bpfResponse = computeFrequencyResponse(n, poles, bpf_wc, omega, "BPF", bpf_wc, bpf_bw);
+        // BPF Response
+        double bpfResponse = computeChebyshevResponse(omega, "BPF", bpf_wc, bpf_wc, bpf_bw);
         bpfFile << omega << "," << bpfResponse << "\n";
     }
 
     lpfFile.close();
     hpfFile.close();
     bpfFile.close();
+
+    populateComboBox();
 
     QMessageBox::information(this, "Başarılı", "Chebyshev grafikleri oluşturuldu!");
 }
 
-void MainWindow::generateInverseChebyshevCSV()
-{
-    const double omegaMax = 1000.0;
-    const int points = 200;
-    const int n = 6;
+void MainWindow::generateInverseChebyshevCSV() {
 
-    generateInverseChebyshev("inverse_c_normalize.csv",0.19,6,200);
+    generateInverseChebyshev("inverse_c_normalize.csv");
 
-    std::ofstream lpfFile("inverse_c_low.csv");
-    if (!lpfFile.is_open())
-    {
-        QMessageBox::critical(this, "Hata", "LPF CSV dosyası oluşturulamadı!");
+    std::ofstream lpfFile("inverse_chebyshev_low.csv");
+    std::ofstream hpfFile("inverse_chebyshev_high.csv");
+    std::ofstream bpfFile("inverse_chebyshev_band.csv");
+
+    if (!lpfFile.is_open() || !hpfFile.is_open() || !bpfFile.is_open()) {
+        QMessageBox::critical(this, "Hata", "CSV dosyaları oluşturulamadı!");
         return;
     }
 
-    std::ofstream hpfFile("inverse_c_high.csv");
-    if (!hpfFile.is_open())
-    {
-        QMessageBox::critical(this, "Hata", "HPF CSV dosyası oluşturulamadı!");
-        return;
-    }
+    auto computeInverseChebyshevResponse = [](double omega, const QString& type, double wp, double wc = 0.0, double bw = 0.0) {
+        double epsilon = 1.0 / std::sqrt(std::pow(10, 0.1 * e_ripple) - 1);
+        double Tn = 0.0;  // Varsayılan değer
+        double omegaTransformed;
 
-    std::ofstream bpfFile("inverse_c_band.csv");
-    if (!bpfFile.is_open())
-    {
-        QMessageBox::critical(this, "Hata", "BPF CSV dosyası oluşturulamadı!");
-        return;
-    }
-
-    const double lpf_wp = 340.0;  // LPF köşe frekansı (rad/s)
-    const double hpf_wp = 130.0;  // HPF köşe frekansı (rad/s)
-    const double bpf_wc = 310.0;  // BPF merkez frekansı (rad/s)
-    const double bpf_bw = 95.0;   // BPF band genişliği (rad/s)
-
-    auto calculatePoles = [](int n) {
-        vector<complex<double>> poles(n);
-        for (int k = 0; k < n; ++k) {
-            double theta = (2 * k + 1) * M_PI / (2 * n);
-            double realPart = -sin(theta);
-            double imagPart = cos(theta);
-            poles[k] = complex<double>(realPart, imagPart);
-        }
-        return poles;
-    };
-
-    auto computeFrequencyResponse = [](int n, const vector<complex<double>>& poles, double wp, double omega, const string& type, double wc = 0.0, double bw = 0.0) {
-        complex<double> jw(0.0, omega);
-        complex<double> s;
-
-        // Frequency transformation
         if (type == "LPF") {
-            s = jw / wp;
+            omegaTransformed = wp / omega;
         } else if (type == "HPF") {
-            s = wp / jw;
+            omegaTransformed = omega / wp;
         } else if (type == "BPF") {
-            s = (pow(jw, 2) + pow(wc, 2)) / (bw * jw);
+            if (std::abs(omega * bw) < 1e-6) {
+                return 0.0; // Bölme hatasını önlemek için sıfır döndür
+            }
+            omegaTransformed = (omega * bw) / (omega * omega - wc * wc);
         } else {
-            throw invalid_argument("Invalid filter type");
+            throw std::invalid_argument("Invalid filter type");
         }
 
-        complex<double> numerator = 1.0;
-        complex<double> denominator = 1.0;
-        for (int k = 0; k < n; ++k) {
-            denominator *= (s - poles[k]);
+        // Geçersiz omega değerlerini kontrol et
+        if (omegaTransformed >= -1 && omegaTransformed <= 1) {
+            Tn = std::cos(n * std::acos(omegaTransformed));
+        } else {
+            Tn = 0; // Geçersiz durumlarda sabit değer
         }
-        return abs(numerator / denominator);
+
+        double Hw = epsilon / std::sqrt(1 + std::pow(Tn, 2));
+        return std::isnan(Hw) ? 0.0 : Hw;  // NaN kontrolü
     };
 
-    vector<complex<double>> poles = calculatePoles(n);
-
     for (int i = 0; i < points; ++i) {
         double omega = (omegaMax / points) * i;
-        double lpfResponse = computeFrequencyResponse(n, poles, lpf_wp, omega, "LPF");
+
+        // LPF Response
+        double lpfResponse = computeInverseChebyshevResponse(omega, "LPF", lpf_wp);
         lpfFile << omega << "," << lpfResponse << "\n";
-    }
 
-    for (int i = 0; i < points; ++i) {
-        double omega = (omegaMax / points) * i;
-        double hpfResponse = computeFrequencyResponse(n, poles, hpf_wp, omega, "HPF");
+        // HPF Response
+        double hpfResponse = computeInverseChebyshevResponse(omega, "HPF", hpf_wp);
         hpfFile << omega << "," << hpfResponse << "\n";
-    }
 
-    for (int i = 0; i < points; ++i) {
-        double omega = (omegaMax / points) * i;
-        double bpfResponse = computeFrequencyResponse(n, poles, bpf_wc, omega, "BPF", bpf_wc, bpf_bw);
+        // BPF Response
+        double bpfResponse = computeInverseChebyshevResponse(omega, "BPF", bpf_wc, bpf_wc, bpf_bw);
         bpfFile << omega << "," << bpfResponse << "\n";
     }
 
     lpfFile.close();
     hpfFile.close();
     bpfFile.close();
+
+    populateComboBox();
 
     QMessageBox::information(this, "Başarılı", "Inverse Chebyshev grafikleri oluşturuldu!");
 }
@@ -540,4 +470,5 @@ void MainWindow::clearAllFiles() {
     } else {
         QMessageBox::information(nullptr, "Başarılı", "Tüm CSV dosyaları başarıyla silindi!");
     }
+    populateComboBox();
 }

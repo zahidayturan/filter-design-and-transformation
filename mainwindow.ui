@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>984</width>
-    <height>695</height>
+    <height>683</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -129,6 +129,12 @@ padding: 4px;</string>
             </property>
             <item>
              <widget class="QLabel" name="label_lpf">
+              <property name="maximumSize">
+               <size>
+                <width>380</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>LPF Köşe Frekansı (ωp) rad/s</string>
               </property>
@@ -136,6 +142,12 @@ padding: 4px;</string>
             </item>
             <item>
              <widget class="QLineEdit" name="edit_lpf">
+              <property name="maximumSize">
+               <size>
+                <width>380</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="autoFillBackground">
                <bool>false</bool>
               </property>
@@ -165,6 +177,12 @@ padding: 4px;</string>
             </property>
             <item>
              <widget class="QLabel" name="label_hpf">
+              <property name="maximumSize">
+               <size>
+                <width>380</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>HPF Köşe Frekansı (ωp) rad/s</string>
               </property>
@@ -172,6 +190,12 @@ padding: 4px;</string>
             </item>
             <item>
              <widget class="QLineEdit" name="edit_hpf">
+              <property name="maximumSize">
+               <size>
+                <width>380</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>130</string>
               </property>
@@ -189,6 +213,12 @@ padding: 4px;</string>
             </property>
             <item>
              <widget class="QLabel" name="label_bpf">
+              <property name="maximumSize">
+               <size>
+                <width>380</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>BPF Merkez Frekansı (ωC)  rad/s</string>
               </property>
@@ -196,6 +226,12 @@ padding: 4px;</string>
             </item>
             <item>
              <widget class="QLineEdit" name="edit_bpf">
+              <property name="maximumSize">
+               <size>
+                <width>380</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>310</string>
               </property>
@@ -213,6 +249,12 @@ padding: 4px;</string>
             </property>
             <item>
              <widget class="QLabel" name="label_bw">
+              <property name="maximumSize">
+               <size>
+                <width>380</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>Band Aralıkları (BW) rad/s</string>
               </property>
@@ -220,6 +262,12 @@ padding: 4px;</string>
             </item>
             <item>
              <widget class="QLineEdit" name="edit_bw">
+              <property name="maximumSize">
+               <size>
+                <width>380</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>95</string>
               </property>
@@ -237,6 +285,12 @@ padding: 4px;</string>
             </property>
             <item>
              <widget class="QLabel" name="label_c">
+              <property name="maximumSize">
+               <size>
+                <width>380</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>Chebyshev Filtre Salınım Aralığı (ε)</string>
               </property>
@@ -244,6 +298,12 @@ padding: 4px;</string>
             </item>
             <item>
              <widget class="QLineEdit" name="edit_c">
+              <property name="maximumSize">
+               <size>
+                <width>380</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>0.12</string>
               </property>
@@ -261,6 +321,12 @@ padding: 4px;</string>
             </property>
             <item>
              <widget class="QLabel" name="label_i">
+              <property name="maximumSize">
+               <size>
+                <width>380</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>Ters Chebyshev Filtre Salınım Aralığı (ε)</string>
               </property>
@@ -268,6 +334,12 @@ padding: 4px;</string>
             </item>
             <item>
              <widget class="QLineEdit" name="line_i">
+              <property name="maximumSize">
+               <size>
+                <width>380</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>0.19</string>
               </property>
@@ -282,6 +354,12 @@ padding: 4px;</string>
             </property>
             <item>
              <widget class="QLabel" name="label_d">
+              <property name="maximumSize">
+               <size>
+                <width>380</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>Filtre Derecesi</string>
               </property>
@@ -289,6 +367,12 @@ padding: 4px;</string>
             </item>
             <item>
              <widget class="QLineEdit" name="edit_d">
+              <property name="maximumSize">
+               <size>
+                <width>380</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>6</string>
               </property>

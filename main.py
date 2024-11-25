@@ -51,4 +51,4 @@ if __name__ == "__main__":
     base_filename = os.path.basename(input_filename)
 
     freqs, amplitudes = read_csv(valid_filename)
-    plot_frequency_response(freqs, amplitudes, title="Butterworth Frequency Response", filename=base_filename)
+    plot_frequency_response(freqs, amplitudes, title="Frequency Response", filename=base_filename)

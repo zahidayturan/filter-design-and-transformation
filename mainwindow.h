@@ -24,7 +24,7 @@ private:
     Ui::MainWindow *ui;
     void populateComboBox();
     void onComboBoxSelectionChanged(int index);
-    static void clearAllFiles();
+    void clearAllFiles();
 };
 #endif
 
