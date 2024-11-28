@@ -23,9 +23,17 @@ const double hpf_wp = 130.0;
 const double bpf_wc = 310.0;
 const double bpf_bw = 95.0;
 
+const double omega_p_lpf = 340;
+const double omega_p_hpf = 130;
+const double omega_c_bpf = 310;
+const double bw_bpf = 95;
+const int num_points = 200;
+
+
 void generateButterworth(const QString& filename);
 void generateChebyshev(const QString& filename);
 void generateInverseChebyshev(const QString& filename);
+void save_to_csv(const std::string& filename, const std::vector<double>& freq, const std::vector<double>& response);
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -275,7 +283,80 @@ void MainWindow::generateButterworthCSV()
 }
 
 void MainWindow::generateChebyshevCSV() {
-    generateChebyshev("chebyshev_normalize.csv");
+
+    std::vector<std::complex<double>> s;
+    std::vector<std::vector<double>> Hch;
+
+    // Payda köklerini bulma
+    for (int k = 1; k <= n; ++k) {
+        double D_Re = -sin((2 * k - 1) * M_PI / (2 * n)) * sinh(asinh(1 / e_ripple) / n);
+        double D_Im = cos((2 * k - 1) * M_PI / (2 * n)) * cosh(asinh(1 / e_ripple) / n);
+        s.emplace_back(D_Re, D_Im);
+    }
+
+    // Biquad payda polinomlarını bulma
+    for (int k = 0; k < (n + 1) / 2; ++k) {
+        if (k == (n - k - 1)) { // Eğer tek kök varsa
+            Hch.push_back({0, 1, -s[k].real()});
+        } else {
+            std::vector<double> poly(3);
+            poly[0] = 1;
+            poly[1] = -(s[k] + s[n - k - 1]).real();
+            poly[2] = (s[k] * s[n - k - 1]).real();
+            Hch.push_back(poly);
+        }
+    }
+
+    // Normalize frekans ekseni ve cevap
+    std::vector<double> w_normalized(num_points), Hw_normalized(num_points);
+    for (int i = 0; i < num_points; ++i) {
+        w_normalized[i] = 0.02 + i * (2.0 - 0.02) / (num_points - 1); // 0.02'den 2 rad/s'ye kadar
+        double freq = w_normalized[i];
+
+        double Nw = 1.0, Dw = 1.0;
+        for (const auto& poly : Hch) {
+            Nw *= std::abs(poly[2]);
+            Dw *= std::abs(poly[0] * std::pow(std::complex<double>(0, freq), 2) +
+                           poly[1] * std::complex<double>(0, freq) + poly[2]);
+        }
+        Hw_normalized[i] = Nw / Dw;
+    }
+
+    // Gerçek frekans ekseni ve cevaplar
+    std::vector<double> w_real(num_points), Hw_lpf(num_points), Hw_hpf(num_points), Hw_bpf(num_points);
+    for (int i = 0; i < num_points; ++i) {
+        w_real[i] = i * 600.0 / num_points; // 0'dan 600 rad/s'ye kadar
+        double freq = w_real[i];
+
+        double Dw_lpf = 1.0, Dw_hpf = 1.0, Dw_bpf = 1.0;
+        for (const auto& poly : Hch) {
+            // LPF
+            Dw_lpf *= std::abs(poly[0] * std::pow(std::complex<double>(0, freq / omega_p_lpf), 2) +
+                               poly[1] * std::complex<double>(0, freq / omega_p_lpf) + poly[2]);
+            // HPF
+            Dw_hpf *= std::abs(poly[0] * std::pow(std::complex<double>(0, omega_p_hpf / freq), 2) +
+                               poly[1] * std::complex<double>(0, omega_p_hpf / freq) + poly[2]);
+            // BPF
+            Dw_bpf *= std::abs(poly[0] * std::pow(std::complex<double>(0, (freq * freq - omega_c_bpf * omega_c_bpf) / (freq * bw_bpf)), 2) +
+                               poly[1] * std::complex<double>(0, (freq * freq - omega_c_bpf * omega_c_bpf) / (freq * bw_bpf)) + poly[2]);
+        }
+
+        Hw_lpf[i] = 1.0 / Dw_lpf;
+        Hw_hpf[i] = 1.0 / Dw_hpf;
+        Hw_bpf[i] = 1.0 / Dw_bpf;
+    }
+
+    // CSV dosyalarına yazma
+    save_to_csv("normalized_response.csv", w_normalized, Hw_normalized);
+    save_to_csv("lpf_response.csv", w_real, Hw_lpf);
+    save_to_csv("hpf_response.csv", w_real, Hw_hpf);
+    save_to_csv("bpf_response.csv", w_real, Hw_bpf);
+
+    std::cout << "Frekans cevapları CSV dosyalarına kaydedildi.\n";
+
+    populateComboBox();
+
+    /*generateChebyshev("chebyshev_normalize.csv");
 
     std::ofstream lpfFile("chebyshev_low.csv");
     std::ofstream hpfFile("chebyshev_high.csv");
@@ -337,7 +418,7 @@ void MainWindow::generateChebyshevCSV() {
 
     populateComboBox();
 
-    QMessageBox::information(this, "Başarılı", "Chebyshev grafikleri oluşturuldu!");
+    QMessageBox::information(this, "Başarılı", "Chebyshev grafikleri oluşturuldu!");*/
 }
 
 void MainWindow::generateInverseChebyshevCSV() {
@@ -471,4 +552,16 @@ void MainWindow::clearAllFiles() {
         QMessageBox::information(nullptr, "Başarılı", "Tüm CSV dosyaları başarıyla silindi!");
     }
     populateComboBox();
+}
+
+void save_to_csv(const std::string& filename, const std::vector<double>& freq, const std::vector<double>& response) {
+    std::ofstream file(filename);
+    if (!file) {
+        std::cerr << "Dosya açılamadı: " << filename << std::endl;
+        return;
+    }
+    for (size_t i = 0; i < freq.size(); ++i) {
+        file << freq[i] << "," << response[i] << "\n";
+    }
+    file.close();
 }
