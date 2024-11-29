@@ -25,6 +25,10 @@ private:
     void populateComboBox();
     void onComboBoxSelectionChanged(int index);
     void clearAllFiles();
+
+    void updateValues();
+
+    void resetToDefaultValues();
 };
 #endif
 

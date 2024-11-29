@@ -12,14 +12,21 @@
 #include <QString>
 
 using namespace std;
-const int n = 6;
-const double e_ripple = 0.12;
-const double ice_ripple = 0.19;
+const int DEFAULT_N = 6;
+const double DEFAULT_E_RIPPLE = 0.12;
+const double DEFAULT_ICE_RIPPLE = 0.19;
+const double DEFAULT_P_LPF = 340.0;
+const double DEFAULT_P_HPF = 130.0;
+const double DEFAULT_C_BPF = 310.0;
+const double DEFAULT_BW_BPF = 95.0;
 
-const double omega_p_lpf = 340;
-const double omega_p_hpf = 130;
-const double omega_c_bpf = 310;
-const double bw_bpf = 95;
+int n = DEFAULT_N; //QLineEdit *edit_d;
+double e_ripple = DEFAULT_E_RIPPLE; //QLineEdit *edit_c;
+double ice_ripple = DEFAULT_ICE_RIPPLE; //QLineEdit *line_i;
+double omega_p_lpf = DEFAULT_P_LPF; //QLineEdit *edit_lpf;
+double omega_p_hpf = DEFAULT_P_HPF; //QLineEdit *edit_hpf;
+double omega_c_bpf = DEFAULT_C_BPF; //QLineEdit *edit_bpf;
+double bw_bpf = DEFAULT_BW_BPF; //QLineEdit *edit_bw;
 const int num_points = 200;
 
 
@@ -37,6 +44,15 @@ MainWindow::MainWindow(QWidget *parent)
     populateComboBox();
     connect(ui->comboBox, QOverload<int>::of(&QComboBox::currentIndexChanged),
             this, &MainWindow::onComboBoxSelectionChanged);
+
+    connect(ui->edit_d, &QLineEdit::editingFinished, this, &MainWindow::updateValues);
+    connect(ui->edit_c, &QLineEdit::editingFinished, this, &MainWindow::updateValues);
+    connect(ui->line_i, &QLineEdit::editingFinished, this, &MainWindow::updateValues);
+    connect(ui->edit_lpf, &QLineEdit::editingFinished, this, &MainWindow::updateValues);
+    connect(ui->edit_hpf, &QLineEdit::editingFinished, this, &MainWindow::updateValues);
+    connect(ui->edit_bpf, &QLineEdit::editingFinished, this, &MainWindow::updateValues);
+    connect(ui->edit_bw, &QLineEdit::editingFinished, this, &MainWindow::updateValues);
+
 }
 
 MainWindow::~MainWindow() {
@@ -328,7 +344,6 @@ void MainWindow::clearAllFiles() {
 
     QStringList csvFiles = dir.entryList(filters, QDir::Files);
 
-    // Iterate over each CSV file and attempt to remove it
     bool errorOccurred = false;
     for (const QString &file : csvFiles) {
         if (!QFile::remove(dir.filePath(file))) {
@@ -336,23 +351,69 @@ void MainWindow::clearAllFiles() {
         }
     }
 
-    // Notify user about the result
     if (errorOccurred) {
-        QMessageBox::warning(nullptr, "Uyarı", "Bazı CSV dosyaları silinemedi!");
+        QMessageBox::warning(nullptr, "Uyarı", "Bazı dosyalar silinemedi!");
     } else {
-        QMessageBox::information(nullptr, "Başarılı", "Tüm CSV dosyaları başarıyla silindi!");
+        QMessageBox::information(nullptr, "Başarılı", "Tüm dosyalar başarıyla silindi! Veriler sıfırlandı");
     }
+    resetToDefaultValues();
     populateComboBox();
 }
 
 void save_to_csv(const std::string& filename, const std::vector<double>& freq, const std::vector<double>& response) {
     std::ofstream file(filename);
     if (!file) {
-        std::cerr << "Dosya açılamadı: " << filename << std::endl;
+        QString errorMessage = "Dosya açılamadı: " + QString::fromStdString(filename);
+        QMessageBox::critical(nullptr, "Hata", errorMessage);
         return;
     }
+
     for (size_t i = 0; i < freq.size(); ++i) {
         file << freq[i] << "," << response[i] << "\n";
     }
     file.close();
 }
+
+void MainWindow::updateValues() {
+    bool ok;
+
+    int nValue = ui->edit_d->text().toInt(&ok);
+    if (ok) n = nValue;
+
+    double eRippleValue = ui->edit_c->text().toDouble(&ok);
+    if (ok) e_ripple = eRippleValue;
+
+    double iceRippleValue = ui->line_i->text().toDouble(&ok);
+    if (ok) ice_ripple = iceRippleValue;
+
+    double lpfValue = ui->edit_lpf->text().toDouble(&ok);
+    if (ok) omega_p_lpf = lpfValue;
+
+    double hpfValue = ui->edit_hpf->text().toDouble(&ok);
+    if (ok) omega_p_hpf = hpfValue;
+
+    double bpfValue = ui->edit_bpf->text().toDouble(&ok);
+    if (ok) omega_c_bpf = bpfValue;
+
+    double bwValue = ui->edit_bw->text().toDouble(&ok);
+    if (ok) bw_bpf = bwValue;
+}
+
+void MainWindow::resetToDefaultValues() {
+    n = DEFAULT_N;
+    e_ripple = DEFAULT_E_RIPPLE;
+    ice_ripple = DEFAULT_ICE_RIPPLE;
+    omega_p_lpf = DEFAULT_P_LPF;
+    omega_p_hpf = DEFAULT_P_HPF;
+    omega_c_bpf = DEFAULT_C_BPF;
+    bw_bpf = DEFAULT_BW_BPF;
+
+    ui->edit_d->setText(QString::number(n));
+    ui->edit_c->setText(QString::number(e_ripple));
+    ui->line_i->setText(QString::number(ice_ripple));
+    ui->edit_lpf->setText(QString::number(omega_p_lpf));
+    ui->edit_hpf->setText(QString::number(omega_p_hpf));
+    ui->edit_bpf->setText(QString::number(omega_c_bpf));
+    ui->edit_bw->setText(QString::number(bw_bpf));
+}
+
