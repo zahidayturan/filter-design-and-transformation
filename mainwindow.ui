@@ -641,6 +641,15 @@ padding: 8px;</string>
               </item>
               <item>
                <widget class="QPushButton" name="b_open">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="styleSheet">
                  <string notr="true">background-color: rgb(241, 249, 250);
 border-radius: 4px;
@@ -649,6 +658,9 @@ color: rgb(24, 43, 52);</string>
                 </property>
                 <property name="text">
                  <string>Grafikleri Görüntüle</string>
+                </property>
+                <property name="checkable">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>

@@ -45,6 +45,15 @@ MainWindow::MainWindow(QWidget *parent)
     checkAllCSV();
     connect(ui->comboBox, QOverload<int>::of(&QComboBox::currentIndexChanged),
             this, &MainWindow::onComboBoxSelectionChanged);
+    connect(ui->b_open, &QPushButton::clicked, this, [this]() {
+        showGraphWithPath("b_all");
+    });
+    connect(ui->c_open, &QPushButton::clicked, this, [this]() {
+        showGraphWithPath("c_all");
+    });
+    connect(ui->i_open, &QPushButton::clicked, this, [this]() {
+        showGraphWithPath("i_all");
+    });
 
     connect(ui->edit_d, &QLineEdit::editingFinished, this, &MainWindow::updateValues);
     connect(ui->edit_c, &QLineEdit::editingFinished, this, &MainWindow::updateValues);
@@ -318,7 +327,7 @@ void MainWindow::onComboBoxSelectionChanged(int index) {
     }
 }
 
-void updateCSVStatus(const QStringList& csvFiles, QLabel* infoLabel) {
+void updateCSVStatus(const QStringList& csvFiles, QLabel* infoLabel, QPushButton* openButton) {
     int existingFileCount = 0;
 
     for (const QString& fileName : csvFiles) {
@@ -330,12 +339,16 @@ void updateCSVStatus(const QStringList& csvFiles, QLabel* infoLabel) {
     if (existingFileCount == csvFiles.size()) {
         infoLabel->setText("grafikler oluşturulmuş");
         infoLabel->setStyleSheet("font: italic 9pt \"Montserrat\";\ncolor: green;");
+        openButton->setVisible(true);
     } else if (existingFileCount > 0) {
         infoLabel->setText("grafiklerin bazıları oluşturulmuş");
         infoLabel->setStyleSheet("font: italic 9pt \"Montserrat\";\ncolor: white;");
+        openButton->setVisible(true);
     } else {
         infoLabel->setText("grafikler oluşturulmamış");
         infoLabel->setStyleSheet("font: italic 9pt \"Montserrat\";\ncolor: red;");
+        openButton->setVisible(false);
+
     }
 }
 
@@ -346,7 +359,7 @@ void MainWindow::checkAllCSV() {
             "hpf_butterworth.csv",
             "bpf_butterworth.csv"
     };
-    updateCSVStatus(bCsvFiles, ui->b_info);
+    updateCSVStatus(bCsvFiles, ui->b_info, ui->b_open);
 
     QStringList cCsvFiles = {
             "normalized_chebyshev.csv",
@@ -354,7 +367,7 @@ void MainWindow::checkAllCSV() {
             "hpf_chebyshev.csv",
             "bpf_chebyshev.csv"
     };
-    updateCSVStatus(cCsvFiles, ui->c_info);
+    updateCSVStatus(cCsvFiles, ui->c_info,ui->c_open);
 
     QStringList iCsvFiles = {
             "normalized_inverse_chebyshev.csv",
@@ -362,7 +375,7 @@ void MainWindow::checkAllCSV() {
             "hpf_inverse_chebyshev.csv",
             "bpf_inverse_chebyshev.csv"
     };
-    updateCSVStatus(iCsvFiles, ui->i_info);
+    updateCSVStatus(iCsvFiles, ui->i_info,ui->i_open);
 }
 
 

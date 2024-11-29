@@ -416,10 +416,17 @@ public:
 
         b_open = new QPushButton(main_widget);
         b_open->setObjectName("b_open");
+        b_open->setEnabled(false);
+        QSizePolicy sizePolicy2(QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(b_open->sizePolicy().hasHeightForWidth());
+        b_open->setSizePolicy(sizePolicy2);
         b_open->setStyleSheet(QString::fromUtf8("background-color: rgb(241, 249, 250);\n"
 "border-radius: 4px;\n"
 "padding: 8px;\n"
 "color: rgb(24, 43, 52);"));
+        b_open->setCheckable(false);
 
         b_buttons->addWidget(b_open);
 
