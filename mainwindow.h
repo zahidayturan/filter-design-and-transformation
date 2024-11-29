@@ -28,6 +28,8 @@ private:
     void checkAllCSV();
     void updateValues();
     void resetToDefaultValues();
+
+    void validateInput(QLineEdit *lineEdit, double min, double max, double defaultValue);
 };
 #endif
 

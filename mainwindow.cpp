@@ -55,13 +55,40 @@ MainWindow::MainWindow(QWidget *parent)
         showGraphWithPath("i_all");
     });
 
-    connect(ui->edit_d, &QLineEdit::editingFinished, this, &MainWindow::updateValues);
-    connect(ui->edit_c, &QLineEdit::editingFinished, this, &MainWindow::updateValues);
-    connect(ui->line_i, &QLineEdit::editingFinished, this, &MainWindow::updateValues);
-    connect(ui->edit_lpf, &QLineEdit::editingFinished, this, &MainWindow::updateValues);
-    connect(ui->edit_hpf, &QLineEdit::editingFinished, this, &MainWindow::updateValues);
-    connect(ui->edit_bpf, &QLineEdit::editingFinished, this, &MainWindow::updateValues);
-    connect(ui->edit_bw, &QLineEdit::editingFinished, this, &MainWindow::updateValues);
+    connect(ui->edit_d, &QLineEdit::editingFinished, this, [=]() {
+        validateInput(ui->edit_d, 1, 10, DEFAULT_N);
+        updateValues();
+    });
+
+    connect(ui->edit_c, &QLineEdit::editingFinished, this, [=]() {
+        validateInput(ui->edit_c, 0.0, 1.0, DEFAULT_E_RIPPLE);
+        updateValues();
+    });
+
+    connect(ui->line_i, &QLineEdit::editingFinished, this, [=]() {
+        validateInput(ui->line_i, 0.0, 1.0, DEFAULT_ICE_RIPPLE);
+        updateValues();
+    });
+
+    connect(ui->edit_lpf, &QLineEdit::editingFinished, this, [=]() {
+        validateInput(ui->edit_lpf, 0.0, 1000.0, DEFAULT_P_LPF);
+        updateValues();
+    });
+
+    connect(ui->edit_hpf, &QLineEdit::editingFinished, this, [=]() {
+        validateInput(ui->edit_hpf, 0, 1000.0, DEFAULT_P_HPF);
+        updateValues();
+    });
+
+    connect(ui->edit_bpf, &QLineEdit::editingFinished, this, [=]() {
+        validateInput(ui->edit_bpf, 0, 1000.0, DEFAULT_C_BPF);
+        updateValues();
+    });
+
+    connect(ui->edit_bw, &QLineEdit::editingFinished, this, [=]() {
+        validateInput(ui->edit_bw, 0, 200.0, DEFAULT_BW_BPF);
+        updateValues();
+    });
 
 }
 
@@ -482,3 +509,18 @@ void MainWindow::resetToDefaultValues() {
     ui->edit_bw->setText(QString::number(bw_bpf));
 }
 
+void MainWindow::validateInput(QLineEdit *lineEdit, double min, double max, double defaultValue) {
+    bool ok;
+    double value = lineEdit->text().toDouble(&ok);
+
+    if (!ok || value < min || value > max) {
+        QMessageBox::warning(this, "Geçersiz Giriş",
+                             QString("Lütfen %1 ile %2 arasında bir değer girin.").arg(min).arg(max));
+
+        lineEdit->setText(QString::number(defaultValue));
+
+        lineEdit->setStyleSheet("border: 2px solid red;\nborder-radius: 4px;\npadding: 2px;");
+    } else {
+        lineEdit->setStyleSheet("border: 2px solid  rgb(241, 249, 250);\nborder-radius: 4px;\npadding: 2px;");
+    }
+}
