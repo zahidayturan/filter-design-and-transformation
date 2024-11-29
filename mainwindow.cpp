@@ -55,37 +55,37 @@ MainWindow::MainWindow(QWidget *parent)
         showGraphWithPath("i_all");
     });
 
-    connect(ui->edit_d, &QLineEdit::editingFinished, this, [=]() {
+    connect(ui->edit_d, &QLineEdit::editingFinished, this, [this]() {
         validateInput(ui->edit_d, 1, 10, DEFAULT_N);
         updateValues();
     });
 
-    connect(ui->edit_c, &QLineEdit::editingFinished, this, [=]() {
+    connect(ui->edit_c, &QLineEdit::editingFinished, this, [this]() {
         validateInput(ui->edit_c, 0.0, 1.0, DEFAULT_E_RIPPLE);
         updateValues();
     });
 
-    connect(ui->line_i, &QLineEdit::editingFinished, this, [=]() {
+    connect(ui->line_i, &QLineEdit::editingFinished, this, [this]() {
         validateInput(ui->line_i, 0.0, 1.0, DEFAULT_ICE_RIPPLE);
         updateValues();
     });
 
-    connect(ui->edit_lpf, &QLineEdit::editingFinished, this, [=]() {
+    connect(ui->edit_lpf, &QLineEdit::editingFinished, this, [this]() {
         validateInput(ui->edit_lpf, 0.0, 1000.0, DEFAULT_P_LPF);
         updateValues();
     });
 
-    connect(ui->edit_hpf, &QLineEdit::editingFinished, this, [=]() {
+    connect(ui->edit_hpf, &QLineEdit::editingFinished, this, [this]() {
         validateInput(ui->edit_hpf, 0, 1000.0, DEFAULT_P_HPF);
         updateValues();
     });
 
-    connect(ui->edit_bpf, &QLineEdit::editingFinished, this, [=]() {
+    connect(ui->edit_bpf, &QLineEdit::editingFinished, this, [this]() {
         validateInput(ui->edit_bpf, 0, 1000.0, DEFAULT_C_BPF);
         updateValues();
     });
 
-    connect(ui->edit_bw, &QLineEdit::editingFinished, this, [=]() {
+    connect(ui->edit_bw, &QLineEdit::editingFinished, this, [this]() {
         validateInput(ui->edit_bw, 0, 200.0, DEFAULT_BW_BPF);
         updateValues();
     });

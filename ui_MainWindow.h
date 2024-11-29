@@ -650,7 +650,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
+        MainWindow->setWindowTitle(QCoreApplication::translate("Filtre Dönüşüm Programı", "Filtre Dönüşüm Programı", nullptr));
         title->setText(QCoreApplication::translate("MainWindow", "F\304\260LTRE D\303\226N\303\234\305\236\303\234M", nullptr));
         reload->setText(QCoreApplication::translate("MainWindow", "Program\304\261 S\304\261f\304\261rla", nullptr));
         label_d->setText(QCoreApplication::translate("MainWindow", "Filtre Derecesi", nullptr));

@@ -140,7 +140,7 @@ build Filter_autogen/timestamp Filter_autogen/mocs_compilation.cpp | ${cmake_nin
 #############################################
 # Phony custom command for CMakeFiles\Filter_autogen_timestamp_deps
 
-build CMakeFiles/Filter_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles/Filter_autogen_timestamp_deps: phony C$:/Qt/6.8.0/mingw_64/bin/moc.exe C$:/Qt/6.8.0/mingw_64/bin/Qt6Core.dll C$:/Qt/6.8.0/mingw_64/bin/Qt6Gui.dll C$:/Qt/6.8.0/mingw_64/bin/Qt6Widgets.dll C$:/Qt/6.8.0/mingw_64/bin/Qt6PrintSupport.dll C$:/Qt/6.8.0/mingw_64/bin/uic.exe
+build CMakeFiles/Filter_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles/Filter_autogen_timestamp_deps: phony C$:/Qt/6.8.0/mingw_64/bin/Qt6Gui.dll C$:/Qt/6.8.0/mingw_64/bin/moc.exe C$:/Qt/6.8.0/mingw_64/bin/Qt6Core.dll C$:/Qt/6.8.0/mingw_64/bin/Qt6Widgets.dll C$:/Qt/6.8.0/mingw_64/bin/Qt6PrintSupport.dll C$:/Qt/6.8.0/mingw_64/bin/uic.exe
 
 
 #############################################
