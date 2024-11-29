@@ -34,6 +34,9 @@ public:
     QPushButton *reload;
     QHBoxLayout *app_menu;
     QVBoxLayout *input_menu;
+    QVBoxLayout *input_d;
+    QLabel *label_d;
+    QLineEdit *edit_d;
     QVBoxLayout *input_lpf;
     QLabel *label_lpf;
     QLineEdit *edit_lpf;
@@ -52,44 +55,54 @@ public:
     QVBoxLayout *input_i;
     QLabel *label_i;
     QLineEdit *line_i;
-    QVBoxLayout *input_d;
-    QLabel *label_d;
-    QLineEdit *edit_d;
     QVBoxLayout *output_menu;
     QVBoxLayout *b_output;
+    QHBoxLayout *b_labels;
     QLabel *b_title;
+    QLabel *b_info;
     QHBoxLayout *b_actives;
     QRadioButton *bl_active;
     QRadioButton *bh_active;
     QRadioButton *bb_active;
     QHBoxLayout *b_buttons;
     QPushButton *b_create;
+    QPushButton *b_open;
     QVBoxLayout *c_output;
+    QHBoxLayout *c_labels;
     QLabel *c_title;
+    QLabel *c_info;
     QHBoxLayout *c_actives;
     QRadioButton *cl_active;
     QRadioButton *ch_active;
     QRadioButton *cb_active;
     QHBoxLayout *c_buttons;
     QPushButton *c_create;
+    QPushButton *c_open;
     QVBoxLayout *i_output;
+    QHBoxLayout *i_labels;
     QLabel *i_title;
+    QLabel *i_info;
     QHBoxLayout *i_actives;
     QRadioButton *il_active;
     QRadioButton *ih_active;
     QRadioButton *ib_active;
     QHBoxLayout *i_buttons;
     QPushButton *i_create;
+    QPushButton *i_open;
     QComboBox *comboBox;
-
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(984, 683);
+        MainWindow->resize(1006, 664);
+        QSizePolicy sizePolicy(QSizePolicy::Policy::Fixed, QSizePolicy::Policy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
+        MainWindow->setSizePolicy(sizePolicy);
         MainWindow->setAutoFillBackground(false);
-        MainWindow->setStyleSheet(QString::fromUtf8("background-color: rgb(47, 79, 91);\n"
+        MainWindow->setStyleSheet(QString::fromUtf8("background-color: rgb(39, 66, 76);\n"
 "font: 10pt \"Montserrat\";\n"
 "color: rgb(252, 252, 252);"));
         main_widget = new QWidget(MainWindow);
@@ -117,13 +130,10 @@ public:
 
         reload = new QPushButton(main_widget);
         reload->setObjectName("reload");
-        QSizePolicy sizePolicy(QSizePolicy::Policy::Fixed, QSizePolicy::Policy::Fixed);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(reload->sizePolicy().hasHeightForWidth());
         reload->setSizePolicy(sizePolicy);
         reload->setStyleSheet(QString::fromUtf8("background-color: rgb(62, 139, 156);\n"
-"border-radius: 4px;\n"
+"border-radius: 2px;\n"
 "padding: 4px;"));
         reload->setAutoDefault(false);
         reload->setFlat(false);
@@ -134,14 +144,43 @@ public:
         main_vertical->addLayout(app_bar);
 
         app_menu = new QHBoxLayout();
-        app_menu->setSpacing(50);
+        app_menu->setSpacing(72);
         app_menu->setObjectName("app_menu");
         app_menu->setSizeConstraint(QLayout::SizeConstraint::SetMinimumSize);
         input_menu = new QVBoxLayout();
-        input_menu->setSpacing(20);
+        input_menu->setSpacing(12);
         input_menu->setObjectName("input_menu");
         input_menu->setSizeConstraint(QLayout::SizeConstraint::SetMinimumSize);
-        input_menu->setContentsMargins(-1, -1, -1, 0);
+        input_menu->setContentsMargins(-1, 0, -1, 0);
+        input_d = new QVBoxLayout();
+        input_d->setSpacing(4);
+        input_d->setObjectName("input_d");
+        input_d->setSizeConstraint(QLayout::SizeConstraint::SetMinimumSize);
+        input_d->setContentsMargins(-1, -1, -1, 0);
+        label_d = new QLabel(main_widget);
+        label_d->setObjectName("label_d");
+        QSizePolicy sizePolicy1(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(label_d->sizePolicy().hasHeightForWidth());
+        label_d->setSizePolicy(sizePolicy1);
+        label_d->setMaximumSize(QSize(380, 16777215));
+
+        input_d->addWidget(label_d);
+
+        edit_d = new QLineEdit(main_widget);
+        edit_d->setObjectName("edit_d");
+        edit_d->setMaximumSize(QSize(380, 16777215));
+        edit_d->setStyleSheet(QString::fromUtf8("border: 2px solid  rgb(241, 249, 250);\n"
+"border-radius: 4px;\n"
+"padding: 2px;"));
+        edit_d->setClearButtonEnabled(true);
+
+        input_d->addWidget(edit_d);
+
+
+        input_menu->addLayout(input_d);
+
         input_lpf = new QVBoxLayout();
         input_lpf->setSpacing(4);
         input_lpf->setObjectName("input_lpf");
@@ -149,6 +188,12 @@ public:
         label_lpf = new QLabel(main_widget);
         label_lpf->setObjectName("label_lpf");
         label_lpf->setMaximumSize(QSize(380, 16777215));
+        QFont font;
+        font.setFamilies({QString::fromUtf8("Montserrat")});
+        font.setPointSize(10);
+        font.setBold(false);
+        font.setItalic(false);
+        label_lpf->setFont(font);
 
         input_lpf->addWidget(label_lpf);
 
@@ -156,7 +201,9 @@ public:
         edit_lpf->setObjectName("edit_lpf");
         edit_lpf->setMaximumSize(QSize(380, 16777215));
         edit_lpf->setAutoFillBackground(false);
-        edit_lpf->setStyleSheet(QString::fromUtf8("border-color: rgb(24, 43, 52);"));
+        edit_lpf->setStyleSheet(QString::fromUtf8("border: 2px solid  rgb(241, 249, 250);\n"
+"border-radius: 4px;\n"
+"padding: 2px;"));
         edit_lpf->setInputMethodHints(Qt::InputMethodHint::ImhNone);
         edit_lpf->setFrame(true);
         edit_lpf->setClearButtonEnabled(true);
@@ -178,7 +225,11 @@ public:
 
         edit_hpf = new QLineEdit(main_widget);
         edit_hpf->setObjectName("edit_hpf");
+        edit_hpf->setMinimumSize(QSize(0, 0));
         edit_hpf->setMaximumSize(QSize(380, 16777215));
+        edit_hpf->setStyleSheet(QString::fromUtf8("border: 2px solid  rgb(241, 249, 250);\n"
+"border-radius: 4px;\n"
+"padding: 2px;"));
         edit_hpf->setClearButtonEnabled(true);
 
         input_hpf->addWidget(edit_hpf);
@@ -199,6 +250,9 @@ public:
         edit_bpf = new QLineEdit(main_widget);
         edit_bpf->setObjectName("edit_bpf");
         edit_bpf->setMaximumSize(QSize(380, 16777215));
+        edit_bpf->setStyleSheet(QString::fromUtf8("border: 2px solid  rgb(241, 249, 250);\n"
+"border-radius: 4px;\n"
+"padding: 2px;"));
         edit_bpf->setClearButtonEnabled(true);
 
         input_bpf->addWidget(edit_bpf);
@@ -219,6 +273,9 @@ public:
         edit_bw = new QLineEdit(main_widget);
         edit_bw->setObjectName("edit_bw");
         edit_bw->setMaximumSize(QSize(380, 16777215));
+        edit_bw->setStyleSheet(QString::fromUtf8("border: 2px solid  rgb(241, 249, 250);\n"
+"border-radius: 4px;\n"
+"padding: 2px;"));
         edit_bw->setClearButtonEnabled(true);
 
         input_bw->addWidget(edit_bw);
@@ -239,6 +296,9 @@ public:
         edit_c = new QLineEdit(main_widget);
         edit_c->setObjectName("edit_c");
         edit_c->setMaximumSize(QSize(380, 16777215));
+        edit_c->setStyleSheet(QString::fromUtf8("border: 2px solid  rgb(241, 249, 250);\n"
+"border-radius: 4px;\n"
+"padding: 4px;"));
         edit_c->setClearButtonEnabled(true);
 
         input_c->addWidget(edit_c);
@@ -259,6 +319,9 @@ public:
         line_i = new QLineEdit(main_widget);
         line_i->setObjectName("line_i");
         line_i->setMaximumSize(QSize(380, 16777215));
+        line_i->setStyleSheet(QString::fromUtf8("border: 2px solid  rgb(241, 249, 250);\n"
+"border-radius: 4px;\n"
+"padding: 2px;"));
         line_i->setClearButtonEnabled(true);
 
         input_i->addWidget(line_i);
@@ -266,40 +329,45 @@ public:
 
         input_menu->addLayout(input_i);
 
-        input_d = new QVBoxLayout();
-        input_d->setObjectName("input_d");
-        input_d->setContentsMargins(-1, -1, -1, 0);
-        label_d = new QLabel(main_widget);
-        label_d->setObjectName("label_d");
-        label_d->setMaximumSize(QSize(380, 16777215));
-
-        input_d->addWidget(label_d);
-
-        edit_d = new QLineEdit(main_widget);
-        edit_d->setObjectName("edit_d");
-        edit_d->setMaximumSize(QSize(380, 16777215));
-        edit_d->setClearButtonEnabled(true);
-
-        input_d->addWidget(edit_d);
-
-
-        input_menu->addLayout(input_d);
-
 
         app_menu->addLayout(input_menu);
 
         output_menu = new QVBoxLayout();
-        output_menu->setSpacing(20);
+        output_menu->setSpacing(34);
         output_menu->setObjectName("output_menu");
+        output_menu->setSizeConstraint(QLayout::SizeConstraint::SetMinimumSize);
         b_output = new QVBoxLayout();
         b_output->setSpacing(4);
         b_output->setObjectName("b_output");
         b_output->setSizeConstraint(QLayout::SizeConstraint::SetFixedSize);
+        b_labels = new QHBoxLayout();
+        b_labels->setObjectName("b_labels");
         b_title = new QLabel(main_widget);
         b_title->setObjectName("b_title");
+        sizePolicy1.setHeightForWidth(b_title->sizePolicy().hasHeightForWidth());
+        b_title->setSizePolicy(sizePolicy1);
+        QFont font1;
+        font1.setFamilies({QString::fromUtf8("Montserrat Black")});
+        font1.setPointSize(11);
+        font1.setWeight(QFont::Black);
+        font1.setItalic(false);
+        b_title->setFont(font1);
         b_title->setStyleSheet(QString::fromUtf8("font: 900 11pt \"Montserrat Black\";"));
 
-        b_output->addWidget(b_title);
+        b_labels->addWidget(b_title);
+
+        b_info = new QLabel(main_widget);
+        b_info->setObjectName("b_info");
+        sizePolicy.setHeightForWidth(b_info->sizePolicy().hasHeightForWidth());
+        b_info->setSizePolicy(sizePolicy);
+        b_info->setLayoutDirection(Qt::LayoutDirection::LeftToRight);
+        b_info->setStyleSheet(QString::fromUtf8("font: italic 9pt \"Montserrat\";\n"
+"color: red;"));
+
+        b_labels->addWidget(b_info);
+
+
+        b_output->addLayout(b_labels);
 
         b_actives = new QHBoxLayout();
         b_actives->setSpacing(10);
@@ -346,6 +414,15 @@ public:
 
         b_buttons->addWidget(b_create);
 
+        b_open = new QPushButton(main_widget);
+        b_open->setObjectName("b_open");
+        b_open->setStyleSheet(QString::fromUtf8("background-color: rgb(241, 249, 250);\n"
+"border-radius: 4px;\n"
+"padding: 8px;\n"
+"color: rgb(24, 43, 52);"));
+
+        b_buttons->addWidget(b_open);
+
 
         b_output->addLayout(b_buttons);
 
@@ -356,11 +433,27 @@ public:
         c_output->setSpacing(4);
         c_output->setObjectName("c_output");
         c_output->setSizeConstraint(QLayout::SizeConstraint::SetFixedSize);
+        c_labels = new QHBoxLayout();
+        c_labels->setObjectName("c_labels");
         c_title = new QLabel(main_widget);
         c_title->setObjectName("c_title");
+        sizePolicy1.setHeightForWidth(c_title->sizePolicy().hasHeightForWidth());
+        c_title->setSizePolicy(sizePolicy1);
         c_title->setStyleSheet(QString::fromUtf8("font: 900 11pt \"Montserrat Black\";"));
 
-        c_output->addWidget(c_title);
+        c_labels->addWidget(c_title);
+
+        c_info = new QLabel(main_widget);
+        c_info->setObjectName("c_info");
+        sizePolicy.setHeightForWidth(c_info->sizePolicy().hasHeightForWidth());
+        c_info->setSizePolicy(sizePolicy);
+        c_info->setStyleSheet(QString::fromUtf8("font: italic 9pt \"Montserrat\";\n"
+"color: red;"));
+
+        c_labels->addWidget(c_info);
+
+
+        c_output->addLayout(c_labels);
 
         c_actives = new QHBoxLayout();
         c_actives->setSpacing(10);
@@ -402,6 +495,15 @@ public:
 
         c_buttons->addWidget(c_create);
 
+        c_open = new QPushButton(main_widget);
+        c_open->setObjectName("c_open");
+        c_open->setStyleSheet(QString::fromUtf8("background-color: rgb(241, 249, 250);\n"
+"border-radius: 4px;\n"
+"padding: 8px;\n"
+"color: rgb(24, 43, 52);"));
+
+        c_buttons->addWidget(c_open);
+
 
         c_output->addLayout(c_buttons);
 
@@ -412,11 +514,27 @@ public:
         i_output->setSpacing(4);
         i_output->setObjectName("i_output");
         i_output->setSizeConstraint(QLayout::SizeConstraint::SetFixedSize);
+        i_labels = new QHBoxLayout();
+        i_labels->setObjectName("i_labels");
         i_title = new QLabel(main_widget);
         i_title->setObjectName("i_title");
+        sizePolicy1.setHeightForWidth(i_title->sizePolicy().hasHeightForWidth());
+        i_title->setSizePolicy(sizePolicy1);
         i_title->setStyleSheet(QString::fromUtf8("font: 900 11pt \"Montserrat Black\";"));
 
-        i_output->addWidget(i_title);
+        i_labels->addWidget(i_title);
+
+        i_info = new QLabel(main_widget);
+        i_info->setObjectName("i_info");
+        sizePolicy.setHeightForWidth(i_info->sizePolicy().hasHeightForWidth());
+        i_info->setSizePolicy(sizePolicy);
+        i_info->setStyleSheet(QString::fromUtf8("font: italic 9pt \"Montserrat\";\n"
+"color: red;"));
+
+        i_labels->addWidget(i_info);
+
+
+        i_output->addLayout(i_labels);
 
         i_actives = new QHBoxLayout();
         i_actives->setSpacing(10);
@@ -458,6 +576,15 @@ public:
 
         i_buttons->addWidget(i_create);
 
+        i_open = new QPushButton(main_widget);
+        i_open->setObjectName("i_open");
+        i_open->setStyleSheet(QString::fromUtf8("background-color: rgb(241, 249, 250);\n"
+"border-radius: 4px;\n"
+"padding: 8px;\n"
+"color: rgb(24, 43, 52);"));
+
+        i_buttons->addWidget(i_open);
+
 
         i_output->addLayout(i_buttons);
 
@@ -468,9 +595,10 @@ public:
         comboBox->setObjectName("comboBox");
         comboBox->setStyleSheet(QString::fromUtf8("background-color: rgb(241, 249, 250);\n"
 "font: 10pt \"Montserrat\";\n"
-"border-radius: 4px;\n"
-"padding: 8px;\n"
+"border-radius: 8px;\n"
+"padding: 8px 8px;\n"
 "color: rgb(24, 43, 52);"));
+        comboBox->setDuplicatesEnabled(false);
 
         output_menu->addWidget(comboBox);
 
@@ -498,6 +626,9 @@ public:
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         title->setText(QCoreApplication::translate("MainWindow", "F\304\260LTRE D\303\226N\303\234\305\236\303\234M", nullptr));
         reload->setText(QCoreApplication::translate("MainWindow", "Program\304\261 S\304\261f\304\261rla", nullptr));
+        label_d->setText(QCoreApplication::translate("MainWindow", "Filtre Derecesi", nullptr));
+        edit_d->setText(QCoreApplication::translate("MainWindow", "6", nullptr));
+        edit_d->setPlaceholderText(QCoreApplication::translate("MainWindow", "Filtre Derecesi", nullptr));
         label_lpf->setText(QCoreApplication::translate("MainWindow", "LPF K\303\266\305\237e Frekans\304\261 (\317\211p) rad/s", nullptr));
         edit_lpf->setText(QCoreApplication::translate("MainWindow", "340", nullptr));
         edit_lpf->setPlaceholderText(QCoreApplication::translate("MainWindow", "LPF K\303\266\305\237e Frekans\304\261 (\317\211p) rad/s", nullptr));
@@ -516,24 +647,27 @@ public:
         label_i->setText(QCoreApplication::translate("MainWindow", "Ters Chebyshev Filtre Sal\304\261n\304\261m Aral\304\261\304\237\304\261 (\316\265)", nullptr));
         line_i->setText(QCoreApplication::translate("MainWindow", "0.19", nullptr));
         line_i->setPlaceholderText(QCoreApplication::translate("MainWindow", "Ters Chebyshev Filtre Sal\304\261n\304\261m Aral\304\261\304\237\304\261 (\316\265)", nullptr));
-        label_d->setText(QCoreApplication::translate("MainWindow", "Filtre Derecesi", nullptr));
-        edit_d->setText(QCoreApplication::translate("MainWindow", "6", nullptr));
-        edit_d->setPlaceholderText(QCoreApplication::translate("MainWindow", "Filtre Derecesi", nullptr));
         b_title->setText(QCoreApplication::translate("MainWindow", "Butterworth", nullptr));
+        b_info->setText(QCoreApplication::translate("MainWindow", "grafikler olu\305\237turulmam\304\261\305\237", nullptr));
         bl_active->setText(QCoreApplication::translate("MainWindow", "Al\303\247ak Filtre", nullptr));
         bh_active->setText(QCoreApplication::translate("MainWindow", "Y\303\274ksek Filtre", nullptr));
         bb_active->setText(QCoreApplication::translate("MainWindow", "Band Ge\303\247iren Filtre", nullptr));
         b_create->setText(QCoreApplication::translate("MainWindow", "Grafikleri Olu\305\237tur", nullptr));
+        b_open->setText(QCoreApplication::translate("MainWindow", "Grafikleri G\303\266r\303\274nt\303\274le", nullptr));
         c_title->setText(QCoreApplication::translate("MainWindow", "Chebyshev", nullptr));
+        c_info->setText(QCoreApplication::translate("MainWindow", "grafikler olu\305\237turulmam\304\261\305\237", nullptr));
         cl_active->setText(QCoreApplication::translate("MainWindow", "Al\303\247ak Filtre", nullptr));
         ch_active->setText(QCoreApplication::translate("MainWindow", "Y\303\274ksek Filtre", nullptr));
         cb_active->setText(QCoreApplication::translate("MainWindow", "Band Ge\303\247iren Filtre", nullptr));
         c_create->setText(QCoreApplication::translate("MainWindow", "Grafikleri Olu\305\237tur", nullptr));
+        c_open->setText(QCoreApplication::translate("MainWindow", "Grafikleri G\303\266r\303\274nt\303\274le", nullptr));
         i_title->setText(QCoreApplication::translate("MainWindow", "Ters Chebyshev", nullptr));
+        i_info->setText(QCoreApplication::translate("MainWindow", "grafikler olu\305\237turulmam\304\261\305\237", nullptr));
         il_active->setText(QCoreApplication::translate("MainWindow", "Al\303\247ak Filtre", nullptr));
         ih_active->setText(QCoreApplication::translate("MainWindow", "Y\303\274ksek Filtre", nullptr));
         ib_active->setText(QCoreApplication::translate("MainWindow", "Band Ge\303\247iren Filtre", nullptr));
         i_create->setText(QCoreApplication::translate("MainWindow", "Grafikleri Olu\305\237tur", nullptr));
+        i_open->setText(QCoreApplication::translate("MainWindow", "Grafikleri G\303\266r\303\274nt\303\274le", nullptr));
 #if QT_CONFIG(tooltip)
         comboBox->setToolTip(QString());
 #endif // QT_CONFIG(tooltip)

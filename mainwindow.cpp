@@ -42,6 +42,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->i_create, &QPushButton::clicked, this, &MainWindow::generateInverseChebyshevCSV);
     connect(ui->reload, &QPushButton::clicked, this, &MainWindow::clearAllFiles);
     populateComboBox();
+    checkAllCSV();
     connect(ui->comboBox, QOverload<int>::of(&QComboBox::currentIndexChanged),
             this, &MainWindow::onComboBoxSelectionChanged);
 
@@ -129,6 +130,7 @@ void MainWindow::generateButterworthCSV()
     save_to_csv("bpf_butterworth.csv", w_real, Hw_bpf);
 
     populateComboBox();
+    checkAllCSV();
     QMessageBox::information(this, "Başarılı", "Butterworth grafikleri oluşturuldu!");
 }
 
@@ -202,6 +204,7 @@ void MainWindow::generateChebyshevCSV() {
     save_to_csv("bpf_chebyshev.csv", w_real, Hw_bpf);
 
     populateComboBox();
+    checkAllCSV();
     QMessageBox::information(this, "Başarılı", "Chebyshev grafikleri oluşturuldu!");
 }
 
@@ -292,6 +295,7 @@ void MainWindow::generateInverseChebyshevCSV() {
     save_to_csv("bpf_inverse_chebyshev.csv", w_real, Hw_bpf);
 
     populateComboBox();
+    checkAllCSV();
     QMessageBox::information(this, "Başarılı", "Inverse Chebyshev grafikleri oluşturuldu!");
 }
 
@@ -314,10 +318,57 @@ void MainWindow::onComboBoxSelectionChanged(int index) {
     }
 }
 
+void updateCSVStatus(const QStringList& csvFiles, QLabel* infoLabel) {
+    int existingFileCount = 0;
+
+    for (const QString& fileName : csvFiles) {
+        if (QFile::exists(fileName)) {
+            ++existingFileCount;
+        }
+    }
+
+    if (existingFileCount == csvFiles.size()) {
+        infoLabel->setText("grafikler oluşturulmuş");
+        infoLabel->setStyleSheet("font: italic 9pt \"Montserrat\";\ncolor: green;");
+    } else if (existingFileCount > 0) {
+        infoLabel->setText("grafiklerin bazıları oluşturulmuş");
+        infoLabel->setStyleSheet("font: italic 9pt \"Montserrat\";\ncolor: white;");
+    } else {
+        infoLabel->setText("grafikler oluşturulmamış");
+        infoLabel->setStyleSheet("font: italic 9pt \"Montserrat\";\ncolor: red;");
+    }
+}
+
+void MainWindow::checkAllCSV() {
+    QStringList bCsvFiles = {
+            "normalized_butterworth.csv",
+            "lpf_butterworth.csv",
+            "hpf_butterworth.csv",
+            "bpf_butterworth.csv"
+    };
+    updateCSVStatus(bCsvFiles, ui->b_info);
+
+    QStringList cCsvFiles = {
+            "normalized_chebyshev.csv",
+            "lpf_chebyshev.csv",
+            "hpf_chebyshev.csv",
+            "bpf_chebyshev.csv"
+    };
+    updateCSVStatus(cCsvFiles, ui->c_info);
+
+    QStringList iCsvFiles = {
+            "normalized_inverse_chebyshev.csv",
+            "lpf_inverse_chebyshev.csv",
+            "hpf_inverse_chebyshev.csv",
+            "bpf_inverse_chebyshev.csv"
+    };
+    updateCSVStatus(iCsvFiles, ui->i_info);
+}
+
+
 void MainWindow::showGraphWithPath(const QString &filename) {
     if (!filename.isEmpty()) {
         auto *process = new QProcess(this);
-
         QDir currentDir(QDir::currentPath());
         currentDir.cdUp();
         QString scriptPath = currentDir.filePath("main.py");
@@ -358,6 +409,7 @@ void MainWindow::clearAllFiles() {
     }
     resetToDefaultValues();
     populateComboBox();
+    checkAllCSV();
 }
 
 void save_to_csv(const std::string& filename, const std::vector<double>& freq, const std::vector<double>& response) {
