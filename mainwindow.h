@@ -26,9 +26,7 @@ private:
     void onComboBoxSelectionChanged(int index);
     void clearAllFiles();
     void checkAllCSV();
-
     void updateValues();
-
     void resetToDefaultValues();
 };
 #endif

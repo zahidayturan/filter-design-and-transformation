@@ -565,14 +565,29 @@ color: red;</string>
               </property>
               <item>
                <widget class="QRadioButton" name="bl_active">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="acceptDrops">
                  <bool>false</bool>
+                </property>
+                <property name="autoFillBackground">
+                 <bool>false</bool>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">border-color: rgb(255, 170, 0);</string>
                 </property>
                 <property name="text">
                  <string>Alçak Filtre</string>
                 </property>
+                <property name="checkable">
+                 <bool>false</bool>
+                </property>
                 <property name="checked">
-                 <bool>true</bool>
+                 <bool>false</bool>
+                </property>
+                <property name="autoRepeat">
+                 <bool>false</bool>
                 </property>
                 <property name="autoExclusive">
                  <bool>false</bool>
@@ -581,11 +596,17 @@ color: red;</string>
               </item>
               <item>
                <widget class="QRadioButton" name="bh_active">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="text">
                  <string>Yüksek Filtre</string>
                 </property>
+                <property name="checkable">
+                 <bool>false</bool>
+                </property>
                 <property name="checked">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                 <property name="autoRepeat">
                  <bool>false</bool>
@@ -597,6 +618,9 @@ color: red;</string>
               </item>
               <item>
                <widget class="QRadioButton" name="bb_active">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="styleSheet">
                  <string notr="true">font: 10pt &quot;Montserrat&quot;;</string>
                 </property>
@@ -604,10 +628,10 @@ color: red;</string>
                  <string>Band Geçiren Filtre</string>
                 </property>
                 <property name="checkable">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                 <property name="checked">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                 <property name="autoRepeat">
                  <bool>false</bool>
@@ -642,7 +666,7 @@ padding: 8px;</string>
               <item>
                <widget class="QPushButton" name="b_open">
                 <property name="enabled">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -723,11 +747,17 @@ color: red;</string>
               </property>
               <item>
                <widget class="QRadioButton" name="cl_active">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="text">
                  <string>Alçak Filtre</string>
                 </property>
+                <property name="checkable">
+                 <bool>false</bool>
+                </property>
                 <property name="checked">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                 <property name="autoExclusive">
                  <bool>false</bool>
@@ -736,11 +766,17 @@ color: red;</string>
               </item>
               <item>
                <widget class="QRadioButton" name="ch_active">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="text">
                  <string>Yüksek Filtre</string>
                 </property>
+                <property name="checkable">
+                 <bool>false</bool>
+                </property>
                 <property name="checked">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                 <property name="autoExclusive">
                  <bool>false</bool>
@@ -749,11 +785,17 @@ color: red;</string>
               </item>
               <item>
                <widget class="QRadioButton" name="cb_active">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="text">
                  <string>Band Geçiren Filtre</string>
                 </property>
+                <property name="checkable">
+                 <bool>false</bool>
+                </property>
                 <property name="checked">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                 <property name="autoExclusive">
                  <bool>false</bool>
@@ -854,11 +896,17 @@ color: red;</string>
               </property>
               <item>
                <widget class="QRadioButton" name="il_active">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="text">
                  <string>Alçak Filtre</string>
                 </property>
+                <property name="checkable">
+                 <bool>false</bool>
+                </property>
                 <property name="checked">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                 <property name="autoExclusive">
                  <bool>false</bool>
@@ -867,11 +915,17 @@ color: red;</string>
               </item>
               <item>
                <widget class="QRadioButton" name="ih_active">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="text">
                  <string>Yüksek Filtre</string>
                 </property>
+                <property name="checkable">
+                 <bool>false</bool>
+                </property>
                 <property name="checked">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                 <property name="autoExclusive">
                  <bool>false</bool>
@@ -880,11 +934,17 @@ color: red;</string>
               </item>
               <item>
                <widget class="QRadioButton" name="ib_active">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="text">
                  <string>Band Geçiren Filtre</string>
                 </property>
+                <property name="checkable">
+                 <bool>false</bool>
+                </property>
                 <property name="checked">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                 <property name="autoExclusive">
                  <bool>false</bool>

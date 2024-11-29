@@ -375,15 +375,22 @@ public:
         b_actives->setSizeConstraint(QLayout::SizeConstraint::SetMinimumSize);
         bl_active = new QRadioButton(main_widget);
         bl_active->setObjectName("bl_active");
+        bl_active->setEnabled(false);
         bl_active->setAcceptDrops(false);
-        bl_active->setChecked(true);
+        bl_active->setAutoFillBackground(false);
+        bl_active->setStyleSheet(QString::fromUtf8("border-color: rgb(255, 170, 0);"));
+        bl_active->setCheckable(false);
+        bl_active->setChecked(false);
+        bl_active->setAutoRepeat(false);
         bl_active->setAutoExclusive(false);
 
         b_actives->addWidget(bl_active);
 
         bh_active = new QRadioButton(main_widget);
         bh_active->setObjectName("bh_active");
-        bh_active->setChecked(true);
+        bh_active->setEnabled(false);
+        bh_active->setCheckable(false);
+        bh_active->setChecked(false);
         bh_active->setAutoRepeat(false);
         bh_active->setAutoExclusive(false);
 
@@ -391,9 +398,10 @@ public:
 
         bb_active = new QRadioButton(main_widget);
         bb_active->setObjectName("bb_active");
+        bb_active->setEnabled(false);
         bb_active->setStyleSheet(QString::fromUtf8("font: 10pt \"Montserrat\";"));
-        bb_active->setCheckable(true);
-        bb_active->setChecked(true);
+        bb_active->setCheckable(false);
+        bb_active->setChecked(false);
         bb_active->setAutoRepeat(false);
         bb_active->setAutoExclusive(false);
 
@@ -416,7 +424,7 @@ public:
 
         b_open = new QPushButton(main_widget);
         b_open->setObjectName("b_open");
-        b_open->setEnabled(false);
+        b_open->setEnabled(true);
         QSizePolicy sizePolicy2(QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Fixed);
         sizePolicy2.setHorizontalStretch(0);
         sizePolicy2.setVerticalStretch(0);
@@ -468,21 +476,27 @@ public:
         c_actives->setSizeConstraint(QLayout::SizeConstraint::SetMinimumSize);
         cl_active = new QRadioButton(main_widget);
         cl_active->setObjectName("cl_active");
-        cl_active->setChecked(true);
+        cl_active->setEnabled(false);
+        cl_active->setCheckable(false);
+        cl_active->setChecked(false);
         cl_active->setAutoExclusive(false);
 
         c_actives->addWidget(cl_active);
 
         ch_active = new QRadioButton(main_widget);
         ch_active->setObjectName("ch_active");
-        ch_active->setChecked(true);
+        ch_active->setEnabled(false);
+        ch_active->setCheckable(false);
+        ch_active->setChecked(false);
         ch_active->setAutoExclusive(false);
 
         c_actives->addWidget(ch_active);
 
         cb_active = new QRadioButton(main_widget);
         cb_active->setObjectName("cb_active");
-        cb_active->setChecked(true);
+        cb_active->setEnabled(false);
+        cb_active->setCheckable(false);
+        cb_active->setChecked(false);
         cb_active->setAutoExclusive(false);
 
         c_actives->addWidget(cb_active);
@@ -549,21 +563,27 @@ public:
         i_actives->setSizeConstraint(QLayout::SizeConstraint::SetMinimumSize);
         il_active = new QRadioButton(main_widget);
         il_active->setObjectName("il_active");
-        il_active->setChecked(true);
+        il_active->setEnabled(false);
+        il_active->setCheckable(false);
+        il_active->setChecked(false);
         il_active->setAutoExclusive(false);
 
         i_actives->addWidget(il_active);
 
         ih_active = new QRadioButton(main_widget);
         ih_active->setObjectName("ih_active");
-        ih_active->setChecked(true);
+        ih_active->setEnabled(false);
+        ih_active->setCheckable(false);
+        ih_active->setChecked(false);
         ih_active->setAutoExclusive(false);
 
         i_actives->addWidget(ih_active);
 
         ib_active = new QRadioButton(main_widget);
         ib_active->setObjectName("ib_active");
-        ib_active->setChecked(true);
+        ib_active->setEnabled(false);
+        ib_active->setCheckable(false);
+        ib_active->setChecked(false);
         ib_active->setAutoExclusive(false);
 
         i_actives->addWidget(ib_active);

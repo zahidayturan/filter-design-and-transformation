@@ -43,15 +43,14 @@ def validate_file_path(filename):
 
 
 def plot_multiple_in_one_window(file_list, title_prefix):
-    """Tek pencerede 4 grafik çizimi."""
-    plt.figure(figsize=(12, 10))
+    plt.figure(figsize=(12, 8))
 
     for i, file in enumerate(file_list):
         try:
             valid_filename = validate_file_path(file)
             freqs, amplitudes = read_csv(valid_filename)
 
-            plt.subplot(2, 2, i + 1)  # 2x2 düzen, sırasıyla 1, 2, 3, 4 numaralı alt grafik
+            plt.subplot(2, 2, i + 1)
             plt.plot(freqs, amplitudes)
             plt.title(f"{title_prefix} - {file}")
             plt.xlabel("Frequency (rad/s)")
@@ -71,7 +70,6 @@ if __name__ == "__main__":
 
     input_filename = sys.argv[1]
 
-    # List of files for each type
     bCsvFiles = [
         "normalized_butterworth.csv",
         "lpf_butterworth.csv",
@@ -93,7 +91,6 @@ if __name__ == "__main__":
         "bpf_inverse_chebyshev.csv"
     ]
 
-    # Check for special filenames
     if input_filename == "b_all":
         plot_multiple_in_one_window(bCsvFiles, "Butterworth")
     elif input_filename == "c_all":
@@ -101,7 +98,6 @@ if __name__ == "__main__":
     elif input_filename == "i_all":
         plot_multiple_in_one_window(iCsvFiles, "Inverse Chebyshev")
     else:
-        # Default behavior for single file
         valid_filename = validate_file_path(input_filename)
         base_filename = os.path.basename(input_filename)
 
