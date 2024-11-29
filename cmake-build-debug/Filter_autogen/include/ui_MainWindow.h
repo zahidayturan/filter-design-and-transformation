@@ -156,7 +156,9 @@ public:
         edit_lpf->setMaximumSize(QSize(380, 16777215));
         edit_lpf->setAutoFillBackground(false);
         edit_lpf->setStyleSheet(QString::fromUtf8("border-color: rgb(24, 43, 52);"));
+        edit_lpf->setInputMethodHints(Qt::InputMethodHint::ImhNone);
         edit_lpf->setFrame(true);
+        edit_lpf->setClearButtonEnabled(true);
 
         input_lpf->addWidget(edit_lpf);
 
@@ -176,6 +178,7 @@ public:
         edit_hpf = new QLineEdit(main_widget);
         edit_hpf->setObjectName("edit_hpf");
         edit_hpf->setMaximumSize(QSize(380, 16777215));
+        edit_hpf->setClearButtonEnabled(true);
 
         input_hpf->addWidget(edit_hpf);
 
@@ -195,6 +198,7 @@ public:
         edit_bpf = new QLineEdit(main_widget);
         edit_bpf->setObjectName("edit_bpf");
         edit_bpf->setMaximumSize(QSize(380, 16777215));
+        edit_bpf->setClearButtonEnabled(true);
 
         input_bpf->addWidget(edit_bpf);
 
@@ -214,6 +218,7 @@ public:
         edit_bw = new QLineEdit(main_widget);
         edit_bw->setObjectName("edit_bw");
         edit_bw->setMaximumSize(QSize(380, 16777215));
+        edit_bw->setClearButtonEnabled(true);
 
         input_bw->addWidget(edit_bw);
 
@@ -233,6 +238,7 @@ public:
         edit_c = new QLineEdit(main_widget);
         edit_c->setObjectName("edit_c");
         edit_c->setMaximumSize(QSize(380, 16777215));
+        edit_c->setClearButtonEnabled(true);
 
         input_c->addWidget(edit_c);
 
@@ -252,6 +258,7 @@ public:
         line_i = new QLineEdit(main_widget);
         line_i->setObjectName("line_i");
         line_i->setMaximumSize(QSize(380, 16777215));
+        line_i->setClearButtonEnabled(true);
 
         input_i->addWidget(line_i);
 
@@ -270,6 +277,7 @@ public:
         edit_d = new QLineEdit(main_widget);
         edit_d->setObjectName("edit_d");
         edit_d->setMaximumSize(QSize(380, 16777215));
+        edit_d->setClearButtonEnabled(true);
 
         input_d->addWidget(edit_d);
 
@@ -494,16 +502,22 @@ public:
         edit_lpf->setPlaceholderText(QCoreApplication::translate("MainWindow", "LPF K\303\266\305\237e Frekans\304\261 (\317\211p) rad/s", nullptr));
         label_hpf->setText(QCoreApplication::translate("MainWindow", "HPF K\303\266\305\237e Frekans\304\261 (\317\211p) rad/s", nullptr));
         edit_hpf->setText(QCoreApplication::translate("MainWindow", "130", nullptr));
+        edit_hpf->setPlaceholderText(QCoreApplication::translate("MainWindow", "HPF K\303\266\305\237e Frekans\304\261 (\317\211p) rad/s", nullptr));
         label_bpf->setText(QCoreApplication::translate("MainWindow", "BPF Merkez Frekans\304\261 (\317\211C)  rad/s", nullptr));
         edit_bpf->setText(QCoreApplication::translate("MainWindow", "310", nullptr));
+        edit_bpf->setPlaceholderText(QCoreApplication::translate("MainWindow", "BPF Merkez Frekans\304\261 (\317\211C)  rad/s", nullptr));
         label_bw->setText(QCoreApplication::translate("MainWindow", "Band Aral\304\261klar\304\261 (BW) rad/s", nullptr));
         edit_bw->setText(QCoreApplication::translate("MainWindow", "95", nullptr));
+        edit_bw->setPlaceholderText(QCoreApplication::translate("MainWindow", "Band Aral\304\261klar\304\261 (BW) rad/s", nullptr));
         label_c->setText(QCoreApplication::translate("MainWindow", "Chebyshev Filtre Sal\304\261n\304\261m Aral\304\261\304\237\304\261 (\316\265)", nullptr));
         edit_c->setText(QCoreApplication::translate("MainWindow", "0.12", nullptr));
+        edit_c->setPlaceholderText(QCoreApplication::translate("MainWindow", "Chebyshev Filtre Sal\304\261n\304\261m Aral\304\261\304\237\304\261 (\316\265)", nullptr));
         label_i->setText(QCoreApplication::translate("MainWindow", "Ters Chebyshev Filtre Sal\304\261n\304\261m Aral\304\261\304\237\304\261 (\316\265)", nullptr));
         line_i->setText(QCoreApplication::translate("MainWindow", "0.19", nullptr));
+        line_i->setPlaceholderText(QCoreApplication::translate("MainWindow", "Ters Chebyshev Filtre Sal\304\261n\304\261m Aral\304\261\304\237\304\261 (\316\265)", nullptr));
         label_d->setText(QCoreApplication::translate("MainWindow", "Filtre Derecesi", nullptr));
         edit_d->setText(QCoreApplication::translate("MainWindow", "6", nullptr));
+        edit_d->setPlaceholderText(QCoreApplication::translate("MainWindow", "Filtre Derecesi", nullptr));
         b_title->setText(QCoreApplication::translate("MainWindow", "Butterworth", nullptr));
         bl_active->setText(QCoreApplication::translate("MainWindow", "Al\303\247ak Filtre", nullptr));
         bh_active->setText(QCoreApplication::translate("MainWindow", "Y\303\274ksek Filtre", nullptr));

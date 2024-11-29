@@ -154,6 +154,9 @@ padding: 4px;</string>
               <property name="styleSheet">
                <string notr="true">border-color: rgb(24, 43, 52);</string>
               </property>
+              <property name="inputMethodHints">
+               <set>Qt::InputMethodHint::ImhNone</set>
+              </property>
               <property name="text">
                <string>340</string>
               </property>
@@ -162,6 +165,9 @@ padding: 4px;</string>
               </property>
               <property name="placeholderText">
                <string>LPF Köşe Frekansı (ωp) rad/s</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -199,6 +205,12 @@ padding: 4px;</string>
               <property name="text">
                <string>130</string>
               </property>
+              <property name="placeholderText">
+               <string>HPF Köşe Frekansı (ωp) rad/s</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
            </layout>
@@ -234,6 +246,12 @@ padding: 4px;</string>
               </property>
               <property name="text">
                <string>310</string>
+              </property>
+              <property name="placeholderText">
+               <string>BPF Merkez Frekansı (ωC)  rad/s</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -271,6 +289,12 @@ padding: 4px;</string>
               <property name="text">
                <string>95</string>
               </property>
+              <property name="placeholderText">
+               <string>Band Aralıkları (BW) rad/s</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
            </layout>
@@ -306,6 +330,12 @@ padding: 4px;</string>
               </property>
               <property name="text">
                <string>0.12</string>
+              </property>
+              <property name="placeholderText">
+               <string>Chebyshev Filtre Salınım Aralığı (ε)</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -343,6 +373,12 @@ padding: 4px;</string>
               <property name="text">
                <string>0.19</string>
               </property>
+              <property name="placeholderText">
+               <string>Ters Chebyshev Filtre Salınım Aralığı (ε)</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
            </layout>
@@ -375,6 +411,12 @@ padding: 4px;</string>
               </property>
               <property name="text">
                <string>6</string>
+              </property>
+              <property name="placeholderText">
+               <string>Filtre Derecesi</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
