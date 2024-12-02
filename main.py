@@ -19,6 +19,8 @@ def plot_frequency_response(freqs, amplitudes, filename=""):
     amplitudes = [max(amp, min_amplitude) for amp in amplitudes]
     type, filter_name = extract_type_and_filter(filename)
 
+    x_max = max(freqs) * 1.1
+    y_max = max(amplitudes) * 1.2
     # Convert to decibels
     # dB_amplitudes = [20 * (math.log10(amp) if amp > 0 else -float('inf')) for amp in amplitudes]
 
@@ -29,6 +31,8 @@ def plot_frequency_response(freqs, amplitudes, filename=""):
     plt.ylabel("Magnitude (dB)")
     plt.grid(True, which="both", linestyle="--", linewidth=0.5)
     plt.axhline(y=0, color='k', linewidth=0.8)
+    plt.xlim([0, x_max])
+    plt.ylim([0, y_max])
     plt.legend()
     plt.show()
 
@@ -53,11 +57,16 @@ def plot_multiple_in_one_window(file_list):
             freqs, amplitudes = read_csv(valid_filename)
             type, filter_name = extract_type_and_filter(valid_filename)
 
+            x_max = max(freqs) * 1.1
+            y_max = max(amplitudes) * 1.2
+
             plt.subplot(2, 2, i + 1)
             plt.plot(freqs, amplitudes, label=type)
             plt.title(filter_name + " Filter")
             plt.xlabel("Frequency (rad/s)")
             plt.ylabel("Magnitude (dB)")
+            plt.xlim([0, x_max])
+            plt.ylim([0, y_max])
             plt.grid(True, which="both", linestyle="--", linewidth=0.5)
             plt.legend()
 
