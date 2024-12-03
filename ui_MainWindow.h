@@ -95,16 +95,16 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(1006, 664);
+        MainWindow->resize(1160, 639);
         QSizePolicy sizePolicy(QSizePolicy::Policy::Fixed, QSizePolicy::Policy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
         MainWindow->setSizePolicy(sizePolicy);
         MainWindow->setAutoFillBackground(false);
-        MainWindow->setStyleSheet(QString::fromUtf8("background-color: rgb(39, 66, 76);\n"
+        MainWindow->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 42, 41);\n"
 "font: 10pt \"Montserrat\";\n"
-"color: rgb(252, 252, 252);"));
+"color: rgb(246, 246, 246);"));
         main_widget = new QWidget(MainWindow);
         main_widget->setObjectName("main_widget");
         main_widget->setAutoFillBackground(false);
@@ -124,7 +124,7 @@ public:
         title = new QLabel(main_widget);
         title->setObjectName("title");
         title->setStyleSheet(QString::fromUtf8("font: 900 16pt \"Montserrat Black\";\n"
-"color: rgb(220, 238, 241);"));
+"color: rgb(246, 246, 246);"));
 
         app_bar->addWidget(title);
 
@@ -132,9 +132,9 @@ public:
         reload->setObjectName("reload");
         sizePolicy.setHeightForWidth(reload->sizePolicy().hasHeightForWidth());
         reload->setSizePolicy(sizePolicy);
-        reload->setStyleSheet(QString::fromUtf8("background-color: rgb(62, 139, 156);\n"
-"border-radius: 2px;\n"
-"padding: 4px;"));
+        reload->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 22, 22);\n"
+"border-radius: 4px;\n"
+"padding: 4px 8px;"));
         reload->setAutoDefault(false);
         reload->setFlat(false);
 
@@ -171,9 +171,9 @@ public:
         edit_d = new QLineEdit(main_widget);
         edit_d->setObjectName("edit_d");
         edit_d->setMaximumSize(QSize(380, 16777215));
-        edit_d->setStyleSheet(QString::fromUtf8("border: 2px solid  rgb(241, 249, 250);\n"
-"border-radius: 4px;\n"
-"padding: 2px;"));
+        edit_d->setStyleSheet(QString::fromUtf8("border-bottom: 1px solid  rgb(241, 249, 250);\n"
+"padding: 2px;\n"
+"border-radius: 0px;"));
         edit_d->setClearButtonEnabled(true);
 
         input_d->addWidget(edit_d);
@@ -201,9 +201,9 @@ public:
         edit_lpf->setObjectName("edit_lpf");
         edit_lpf->setMaximumSize(QSize(380, 16777215));
         edit_lpf->setAutoFillBackground(false);
-        edit_lpf->setStyleSheet(QString::fromUtf8("border: 2px solid  rgb(241, 249, 250);\n"
-"border-radius: 4px;\n"
-"padding: 2px;"));
+        edit_lpf->setStyleSheet(QString::fromUtf8("border-bottom: 1px solid  rgb(241, 249, 250);\n"
+"padding: 2px;\n"
+"border-radius: 0px;"));
         edit_lpf->setInputMethodHints(Qt::InputMethodHint::ImhNone);
         edit_lpf->setFrame(true);
         edit_lpf->setClearButtonEnabled(true);
@@ -227,9 +227,9 @@ public:
         edit_hpf->setObjectName("edit_hpf");
         edit_hpf->setMinimumSize(QSize(0, 0));
         edit_hpf->setMaximumSize(QSize(380, 16777215));
-        edit_hpf->setStyleSheet(QString::fromUtf8("border: 2px solid  rgb(241, 249, 250);\n"
-"border-radius: 4px;\n"
-"padding: 2px;"));
+        edit_hpf->setStyleSheet(QString::fromUtf8("border-bottom: 1px solid  rgb(241, 249, 250);\n"
+"padding: 2px;\n"
+"border-radius: 0px;"));
         edit_hpf->setClearButtonEnabled(true);
 
         input_hpf->addWidget(edit_hpf);
@@ -250,9 +250,9 @@ public:
         edit_bpf = new QLineEdit(main_widget);
         edit_bpf->setObjectName("edit_bpf");
         edit_bpf->setMaximumSize(QSize(380, 16777215));
-        edit_bpf->setStyleSheet(QString::fromUtf8("border: 2px solid  rgb(241, 249, 250);\n"
-"border-radius: 4px;\n"
-"padding: 2px;"));
+        edit_bpf->setStyleSheet(QString::fromUtf8("border-bottom: 1px solid  rgb(241, 249, 250);\n"
+"padding: 2px;\n"
+"border-radius: 0px;"));
         edit_bpf->setClearButtonEnabled(true);
 
         input_bpf->addWidget(edit_bpf);
@@ -273,9 +273,9 @@ public:
         edit_bw = new QLineEdit(main_widget);
         edit_bw->setObjectName("edit_bw");
         edit_bw->setMaximumSize(QSize(380, 16777215));
-        edit_bw->setStyleSheet(QString::fromUtf8("border: 2px solid  rgb(241, 249, 250);\n"
-"border-radius: 4px;\n"
-"padding: 2px;"));
+        edit_bw->setStyleSheet(QString::fromUtf8("border-bottom: 1px solid  rgb(241, 249, 250);\n"
+"padding: 2px;\n"
+"border-radius: 0px;"));
         edit_bw->setClearButtonEnabled(true);
 
         input_bw->addWidget(edit_bw);
@@ -296,9 +296,9 @@ public:
         edit_c = new QLineEdit(main_widget);
         edit_c->setObjectName("edit_c");
         edit_c->setMaximumSize(QSize(380, 16777215));
-        edit_c->setStyleSheet(QString::fromUtf8("border: 2px solid  rgb(241, 249, 250);\n"
-"border-radius: 4px;\n"
-"padding: 4px;"));
+        edit_c->setStyleSheet(QString::fromUtf8("border-bottom: 1px solid  rgb(241, 249, 250);\n"
+"padding: 2px;\n"
+"border-radius: 0px;"));
         edit_c->setClearButtonEnabled(true);
 
         input_c->addWidget(edit_c);
@@ -319,9 +319,9 @@ public:
         line_i = new QLineEdit(main_widget);
         line_i->setObjectName("line_i");
         line_i->setMaximumSize(QSize(380, 16777215));
-        line_i->setStyleSheet(QString::fromUtf8("border: 2px solid  rgb(241, 249, 250);\n"
-"border-radius: 4px;\n"
-"padding: 2px;"));
+        line_i->setStyleSheet(QString::fromUtf8("border-bottom: 1px solid  rgb(241, 249, 250);\n"
+"padding: 2px;\n"
+"border-radius: 0px;"));
         line_i->setClearButtonEnabled(true);
 
         input_i->addWidget(line_i);
@@ -370,7 +370,7 @@ public:
         b_output->addLayout(b_labels);
 
         b_actives = new QHBoxLayout();
-        b_actives->setSpacing(10);
+        b_actives->setSpacing(14);
         b_actives->setObjectName("b_actives");
         b_actives->setSizeConstraint(QLayout::SizeConstraint::SetMinimumSize);
         bl_active = new QRadioButton(main_widget);
@@ -416,8 +416,8 @@ public:
         b_buttons->setSizeConstraint(QLayout::SizeConstraint::SetMinimumSize);
         b_create = new QPushButton(main_widget);
         b_create->setObjectName("b_create");
-        b_create->setStyleSheet(QString::fromUtf8("background-color: rgb(24, 43, 52);\n"
-"border-radius: 4px;\n"
+        b_create->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 119, 115);\n"
+"border-radius: 8px;\n"
 "padding: 8px;"));
 
         b_buttons->addWidget(b_create);
@@ -430,10 +430,9 @@ public:
         sizePolicy2.setVerticalStretch(0);
         sizePolicy2.setHeightForWidth(b_open->sizePolicy().hasHeightForWidth());
         b_open->setSizePolicy(sizePolicy2);
-        b_open->setStyleSheet(QString::fromUtf8("background-color: rgb(241, 249, 250);\n"
-"border-radius: 4px;\n"
-"padding: 8px;\n"
-"color: rgb(24, 43, 52);"));
+        b_open->setStyleSheet(QString::fromUtf8("background-color: rgb(50, 178, 31);\n"
+"border-radius: 8px;\n"
+"padding: 8px;"));
         b_open->setCheckable(false);
 
         b_buttons->addWidget(b_open);
@@ -471,7 +470,7 @@ public:
         c_output->addLayout(c_labels);
 
         c_actives = new QHBoxLayout();
-        c_actives->setSpacing(10);
+        c_actives->setSpacing(14);
         c_actives->setObjectName("c_actives");
         c_actives->setSizeConstraint(QLayout::SizeConstraint::SetMinimumSize);
         cl_active = new QRadioButton(main_widget);
@@ -510,18 +509,17 @@ public:
         c_buttons->setSizeConstraint(QLayout::SizeConstraint::SetMinimumSize);
         c_create = new QPushButton(main_widget);
         c_create->setObjectName("c_create");
-        c_create->setStyleSheet(QString::fromUtf8("background-color: rgb(24, 43, 52);\n"
-"border-radius: 4px;\n"
+        c_create->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 119, 115);\n"
+"border-radius: 8px;\n"
 "padding: 8px;"));
 
         c_buttons->addWidget(c_create);
 
         c_open = new QPushButton(main_widget);
         c_open->setObjectName("c_open");
-        c_open->setStyleSheet(QString::fromUtf8("background-color: rgb(241, 249, 250);\n"
-"border-radius: 4px;\n"
-"padding: 8px;\n"
-"color: rgb(24, 43, 52);"));
+        c_open->setStyleSheet(QString::fromUtf8("background-color: rgb(50, 178, 31);\n"
+"border-radius: 8px;\n"
+"padding: 8px;"));
 
         c_buttons->addWidget(c_open);
 
@@ -558,7 +556,7 @@ public:
         i_output->addLayout(i_labels);
 
         i_actives = new QHBoxLayout();
-        i_actives->setSpacing(10);
+        i_actives->setSpacing(14);
         i_actives->setObjectName("i_actives");
         i_actives->setSizeConstraint(QLayout::SizeConstraint::SetMinimumSize);
         il_active = new QRadioButton(main_widget);
@@ -597,18 +595,17 @@ public:
         i_buttons->setSizeConstraint(QLayout::SizeConstraint::SetMinimumSize);
         i_create = new QPushButton(main_widget);
         i_create->setObjectName("i_create");
-        i_create->setStyleSheet(QString::fromUtf8("background-color: rgb(24, 43, 52);\n"
-"border-radius: 4px;\n"
+        i_create->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 119, 115);\n"
+"border-radius: 8px;\n"
 "padding: 8px;"));
 
         i_buttons->addWidget(i_create);
 
         i_open = new QPushButton(main_widget);
         i_open->setObjectName("i_open");
-        i_open->setStyleSheet(QString::fromUtf8("background-color: rgb(241, 249, 250);\n"
-"border-radius: 4px;\n"
-"padding: 8px;\n"
-"color: rgb(24, 43, 52);"));
+        i_open->setStyleSheet(QString::fromUtf8("background-color: rgb(50, 178, 31);\n"
+"border-radius: 8px;\n"
+"padding: 8px;"));
 
         i_buttons->addWidget(i_open);
 
@@ -620,11 +617,11 @@ public:
 
         comboBox = new QComboBox(main_widget);
         comboBox->setObjectName("comboBox");
-        comboBox->setStyleSheet(QString::fromUtf8("background-color: rgb(241, 249, 250);\n"
-"font: 10pt \"Montserrat\";\n"
+        comboBox->setStyleSheet(QString::fromUtf8("font: 10pt \"Montserrat\";\n"
 "border-radius: 8px;\n"
-"padding: 8px 8px;\n"
-"color: rgb(24, 43, 52);"));
+"padding: 8px;\n"
+"background-color: rgb(0, 22, 22);\n"
+""));
         comboBox->setDuplicatesEnabled(false);
 
         output_menu->addWidget(comboBox);
@@ -650,7 +647,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QCoreApplication::translate("Filtre Dönüşüm Programı", "Filtre Dönüşüm Programı", nullptr));
+        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         title->setText(QCoreApplication::translate("MainWindow", "F\304\260LTRE D\303\226N\303\234\305\236\303\234M", nullptr));
         reload->setText(QCoreApplication::translate("MainWindow", "Program\304\261 S\304\261f\304\261rla", nullptr));
         label_d->setText(QCoreApplication::translate("MainWindow", "Filtre Derecesi", nullptr));
@@ -676,22 +673,22 @@ public:
         line_i->setPlaceholderText(QCoreApplication::translate("MainWindow", "Ters Chebyshev Filtre Sal\304\261n\304\261m Aral\304\261\304\237\304\261 (\316\265)", nullptr));
         b_title->setText(QCoreApplication::translate("MainWindow", "Butterworth", nullptr));
         b_info->setText(QCoreApplication::translate("MainWindow", "grafikler olu\305\237turulmam\304\261\305\237", nullptr));
-        bl_active->setText(QCoreApplication::translate("MainWindow", "Al\303\247ak Filtre", nullptr));
-        bh_active->setText(QCoreApplication::translate("MainWindow", "Y\303\274ksek Filtre", nullptr));
+        bl_active->setText(QCoreApplication::translate("MainWindow", "Al\303\247ak Ge\303\247iren Filtre", nullptr));
+        bh_active->setText(QCoreApplication::translate("MainWindow", "Y\303\274ksek Ge\303\247iren Filtre", nullptr));
         bb_active->setText(QCoreApplication::translate("MainWindow", "Band Ge\303\247iren Filtre", nullptr));
         b_create->setText(QCoreApplication::translate("MainWindow", "Grafikleri Olu\305\237tur", nullptr));
         b_open->setText(QCoreApplication::translate("MainWindow", "Grafikleri G\303\266r\303\274nt\303\274le", nullptr));
         c_title->setText(QCoreApplication::translate("MainWindow", "Chebyshev", nullptr));
         c_info->setText(QCoreApplication::translate("MainWindow", "grafikler olu\305\237turulmam\304\261\305\237", nullptr));
-        cl_active->setText(QCoreApplication::translate("MainWindow", "Al\303\247ak Filtre", nullptr));
-        ch_active->setText(QCoreApplication::translate("MainWindow", "Y\303\274ksek Filtre", nullptr));
+        cl_active->setText(QCoreApplication::translate("MainWindow", "Al\303\247ak Ge\303\247iren Filtre", nullptr));
+        ch_active->setText(QCoreApplication::translate("MainWindow", "Y\303\274ksek Ge\303\247iren Filtre", nullptr));
         cb_active->setText(QCoreApplication::translate("MainWindow", "Band Ge\303\247iren Filtre", nullptr));
         c_create->setText(QCoreApplication::translate("MainWindow", "Grafikleri Olu\305\237tur", nullptr));
         c_open->setText(QCoreApplication::translate("MainWindow", "Grafikleri G\303\266r\303\274nt\303\274le", nullptr));
         i_title->setText(QCoreApplication::translate("MainWindow", "Ters Chebyshev", nullptr));
         i_info->setText(QCoreApplication::translate("MainWindow", "grafikler olu\305\237turulmam\304\261\305\237", nullptr));
-        il_active->setText(QCoreApplication::translate("MainWindow", "Al\303\247ak Filtre", nullptr));
-        ih_active->setText(QCoreApplication::translate("MainWindow", "Y\303\274ksek Filtre", nullptr));
+        il_active->setText(QCoreApplication::translate("MainWindow", "Al\303\247ak Ge\303\247iren Filtre", nullptr));
+        ih_active->setText(QCoreApplication::translate("MainWindow", "Y\303\274ksek Ge\303\247iren Filtre", nullptr));
         ib_active->setText(QCoreApplication::translate("MainWindow", "Band Ge\303\247iren Filtre", nullptr));
         i_create->setText(QCoreApplication::translate("MainWindow", "Grafikleri Olu\305\237tur", nullptr));
         i_open->setText(QCoreApplication::translate("MainWindow", "Grafikleri G\303\266r\303\274nt\303\274le", nullptr));

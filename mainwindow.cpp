@@ -278,7 +278,7 @@ void MainWindow::generateInverseChebyshevCSV() {
     for (const auto& polyN : HcN) {
         Gain /= polyN[2];
     }
-    Gain = std::pow(Gain, 1.0 / ((n + 1) / 2));
+    Gain = std::pow(Gain, 1.0 / (static_cast<double>(n + 1) / 2.0));
     for (auto& polyN : HcN) {
         for (auto& coeff : polyN) {
             coeff *= Gain;
